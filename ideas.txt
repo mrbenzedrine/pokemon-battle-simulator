@@ -1,0 +1,90 @@
+IDEAS
+
+Should there be a dictionary which holds all
+Pokemon types? So then you could simply pass
+a dictionary to the Pokemon class by referencing
+the appropriate Pokemon string name that's passed
+to the class?
+
+I feel that each Pokemon may have some sort of 'base'
+stats, then as you level up you do some maths to
+figure out how much each stat should go up?
+
+The level of the Pokemon could be some sort of
+multiplier to stat upgrades?
+
+Need to be able to save a Pokemon's state (xp, level etc),
+and then load it again.
+
+
+Pokemon class
+
+Moves, stats, level are all things that are internal
+data and change over time depending on the user
+interaction with the Pokemon, how do I model that?
+
+The way stats increase after a level up are probably
+calculated by some probability of each stat increasing,
+or is it that they have a multipler for each stat which is
+intrinsic of that particular Pokemon? For example, Bulbasaur
+would have a multipler of, say, 1.2 for Attack when it levels
+up, but Charmander has a multipler of 1.25?
+
+The latter approach would allow me to simply calculate
+a Pokemon's stats based purely on their base stats!
+Seems doubtful that it happens that way, since you could
+then theoretically have a wild Pokemon the same level and
+Pokemon as you and it'd be completely evenly matched?
+
+Perhaps I should simply figure out the mechanics of battling
+before delving into the mathematics of levelling up?
+
+I think that since user's Pokemon have more calculations (xp,
+levels etc) to keep track of, perhaps there should be a base class
+of Pokemon, and then user controlled Pokemon inherit from this and
+add some of their own stuff, and then NPC Pokemon just use the normal
+Pokemon class?
+
+Battle class
+
+Battles are divided into turns, so there's gonna have to
+be some way of defining the concept of a turn, in which
+both Pokemon choose a move for them to do (or potion
+healing etc, but ignore that for now) leading up to the
+turn and then their stats determine how that turn is then
+carried out.
+
+Oh wait, maybe a battle is a FUNCTION rather than a class?!?
+
+Battle function
+Assumptions:
+
+    Both Pokemon's HP > 0
+
+    It could actually be a while loop, and it's
+    while both Pokemon's HP stat is above zero?
+
+    Hmm, but then does that mean I alter the stat
+    of the object directly, or do I like make a
+    copy of it? Nahh, edit it directly I reckon,
+    HP is data that is always with a Pokemon,
+    it still is the same out of battle as it is
+    in battle, ie, if a Pokemon faints in battle,
+    it'll still have 0 HP after the battle
+
+Need to have options like 'fight', 'bag', 'run', 'Pokemon' rather than
+just going straight to fight
+
+Could try having multiple Pokemon; ie, a Pokemon party of 6, and you
+can switch between them in battle and they are all saved to state
+like I do for one Pokemon.
+
+A party of pokemon will be a collection of instances of the UserPokemon
+class, so likely an array / map of pokemon objects
+
+HP needs to be carried over from previous, currently HP is reset after
+each run of the code regardless of if a previous run has had HP taken off
+of my pokemon
+Ok, only Level, CurrentXP and XPNeededforLevelUp is saved in the save state
+file, so need to incorporate pokemon HP in there, as well as, eventually,
+the list of Pokemon in my party
