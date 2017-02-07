@@ -34,11 +34,13 @@ class UserPokemon(Pokemon):
             self.level = self.load_last_state()['level']
             self.current_xp = self.load_last_state()['current_xp']
             self.level_up_xp = self.load_last_state()['level_up_xp']
+            self.current_hp = self.load_last_state()['current_hp']
             print(' Previous save state existed, so loading it')
         except IOError:
             self.level = self.create_initial_state_file()['level']
             self.current_xp = self.create_initial_state_file()['current_xp']
             self.level_up_xp = self.create_initial_state_file()['level_up_xp']
+            self.current_hp = self.create_initial_state_file()['current_hp']
             print('No previous save state existed, so creating a fresh one')
 
     def show_current_xp(self):
@@ -76,6 +78,13 @@ class UserPokemon(Pokemon):
             self.current_xp = 0 + remaining_xp
             self.level_up_xp = 60
 
+            self.increase_stats_after_level_up()
+
+    def increase_stats_after_level_up(self):
+        for key in self.stats:
+            self.stats[key] *= 1.2
+            print(self.stats[key])
+
     def create_initial_state_file(self):
         # Needs to save the Pokemon's xp, level etc
         # in an external file whenever an instance of
@@ -83,7 +92,8 @@ class UserPokemon(Pokemon):
         initial_pokemon_state = {
             'level': 5,
             'current_xp': 0,
-            'level_up_xp': 50
+            'level_up_xp': 50,
+            'current_hp': self.stats['HP']
         }
         out_file = open(self.name + '_state', 'wb')
         pickle.dump(initial_pokemon_state, out_file)
@@ -93,7 +103,8 @@ class UserPokemon(Pokemon):
         new_pokemon_state = {
             'level': self.level,
             'current_xp': self.current_xp,
-            'level_up_xp': self.level_up_xp
+            'level_up_xp': self.level_up_xp,
+            'current_hp': self.current_hp
         }
         out_file = open(self.name + '_state', 'wb')
         pickle.dump(new_pokemon_state, out_file)

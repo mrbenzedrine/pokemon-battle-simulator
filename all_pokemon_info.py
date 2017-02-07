@@ -72,7 +72,7 @@ allPokemon = {
                 'Name': 'Tackle',
                 'Type': 'Normal',
                 'Category': 'Physical',
-                'Power': 70,
+                'Power': 0,  # Made zero for the sake of testing exp gain of user pokemon
                 'Accuracy': 1,
                 'PP': 35
             },

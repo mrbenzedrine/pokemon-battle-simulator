@@ -40,7 +40,9 @@ def choose_action(pokemon_name):
 
 def battle(my_pokemon, their_pokemon):
 
-    while my_pokemon.stats['HP'] > 0 and their_pokemon.stats['HP'] > 0:
+    print("Current HP is %s" % my_pokemon.current_hp)
+
+    while my_pokemon.current_hp > 0 and their_pokemon.stats['HP'] > 0:
 
         # First need to choose an action (fight, bag, pokemon, run)
 
@@ -56,8 +58,11 @@ def battle(my_pokemon, their_pokemon):
 
             fight(my_pokemon, their_pokemon)
 
-    if my_pokemon.stats['HP'] <= 0:
+    if my_pokemon.current_hp <= 0:
         print('Your %s has fainted!' % my_pokemon.name)
+        # Probably shouldn't be calling update_state_file directly, but
+        # just do it for now =P
+        my_pokemon.update_state_file()
     if their_pokemon.stats['HP'] <= 0:
         print('Their %s has fainted!' % their_pokemon.name)
 
@@ -66,7 +71,7 @@ def battle(my_pokemon, their_pokemon):
         my_pokemon.update_xp(50)
 
     # print('Broken out of battle\'s while loop')
-    print('Your %s\'s HP is %s' % (my_pokemon.name, my_pokemon.stats['HP']))
+    print('Your %s\'s HP is %s' % (my_pokemon.name, my_pokemon.current_hp))
     print('Their %s\'s HP is %s' % (their_pokemon.name, their_pokemon.stats['HP']))
 
 
@@ -155,7 +160,7 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
 
         execute_move(their_pokemon, my_pokemon, their_move)
 
-        if my_pokemon.stats['HP'] <= 0:
+        if my_pokemon.current_hp <= 0:
             return
         else:
             execute_move(my_pokemon, their_pokemon, my_move)
@@ -182,16 +187,35 @@ def execute_move(pokemon1, pokemon2, pokemon1_move):
         # Print super effective
         effectiveness_message = 'It\'s super effective!'
 
-    if pokemon2.stats['HP'] - move_damage / 5 < 0:
-        # Just set it to zero, can't have negative HP!
-        pokemon2.stats['HP'] = 0
-    else:
-        pokemon2.stats['HP'] -= move_damage / 5
+    # Opponent Pokemon don't need to have a separate value for current HP
+    # vs the value of their HP stat, so need to check whether pokemon2.current_hp
+    # value exists; if it does, then pokemon2 is a user pokemon so alter current_hp,
+    # if it doesn't exist, then it's an opponent pokemon, so just alter its HP stat
+    # for now?
+
+    try:
+        if pokemon2.current_hp - move_damage / 5 < 0:
+            # Just set it to zero, can't have negative HP!
+            pokemon2.current_hp = 0
+        else:
+            pokemon2.current_hp -= move_damage / 5
+
+    except AttributeError:
+
+        if pokemon2.stats['HP'] - move_damage / 5 < 0:
+            # Just set it to zero, can't have negative HP!
+            pokemon2.stats['HP'] = 0
+        else:
+            pokemon2.stats['HP'] -= move_damage / 5
 
     print('%s used %s!' % (pokemon1.name, pokemon1_move['Name']))
     if effectiveness_message is not None:
         print(effectiveness_message)
-    print('%s\'s HP is now %s' % (pokemon2.name, pokemon2.stats['HP']))
+
+    try:
+        print('%s\'s HP is now %s' % (pokemon2.name, pokemon2.current_hp))
+    except AttributeError:
+        print('%s\'s HP is now %s' % (pokemon2.name, pokemon2.stats['HP']))
 
 
 # def opponent_execute_move(their_pokemon, their_move, my_pokemon):
