@@ -1,9 +1,10 @@
 # pokemon-battle-simulator
 Simple Pokemon battle simulator written in python
 
-#Current state
+## Current state
 Fairly sparse, only very basic and limited
-text input at the moment
+text input
 
-#Running
-Run the main.py file
+## Running
+Running `main.py` with `python main.py` should
+do the trick
