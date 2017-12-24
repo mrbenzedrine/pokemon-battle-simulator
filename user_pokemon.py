@@ -1,34 +1,11 @@
 from pokemon import Pokemon
 import pickle
 
-
 class UserPokemon(Pokemon):
 
     def __init__(self, name):
 
-        # I think there may need to be some sort of check
-        # as to whether the previous state file exists or
-        # not when initiating the class instance, because
-        # you could be running up the code/program when
-        # you first start a new Pokemon, OR when you are
-        # continuing from before.
-
-        # So if you're starting completely new then you need
-        # to set the level and current_xp up at their default
-        # values, but if you're continuing from before then
-        # you can load the previous state like I've done
-        # already.
-
-        # Ah, seems like it's better to just try opening the
-        # file, and if there is an error then we know it doesn't
-        # exist, rather than checking for file existence
-
         super().__init__(name)
-
-        # Try opening the previous state file using load_last_state:
-        # if it exists, then great, if it doesn't then need to
-        # call create_initial_state_file to initialise and create
-        # the state file
 
         try:
             self.level = self.load_last_state()['level']
