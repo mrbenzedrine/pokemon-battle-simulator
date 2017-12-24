@@ -74,12 +74,10 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
         else:
             execute_move(my_pokemon, their_pokemon, my_move)
 
-def execute_move(pokemon1, pokemon2, pokemon1_move):
+def execute_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-    # pokemon1 is attacking, pokemon2 is defending
-
-    damage_multiplier = move_type_check(pokemon1_move['Type'], pokemon2.type)
-    move_damage = pokemon1_move['Power'] * damage_multiplier
+    damage_multiplier = move_type_check(attacking_pokemon_move['Type'], defending_pokemon.type)
+    move_damage = attacking_pokemon_move['Power'] * damage_multiplier
 
     # Set the string for the damage multiplier
     # ie, super effective, not very effective etc
@@ -94,32 +92,32 @@ def execute_move(pokemon1, pokemon2, pokemon1_move):
         effectiveness_message = 'It\'s super effective!'
 
     # Opponent Pokemon don't need to have a separate value for current HP
-    # vs the value of their HP stat, so need to check whether pokemon2.current_hp
-    # value exists; if it does, then pokemon2 is a user pokemon so alter current_hp,
+    # vs the value of their HP stat, so need to check whether defending_pokemon.current_hp
+    # value exists; if it does, then defending_pokemon is a user pokemon so alter current_hp,
     # if it doesn't exist, then it's an opponent pokemon, so just alter its HP stat
     # for now?
 
     try:
-        if pokemon2.current_hp - move_damage / 5 < 0:
-            pokemon2.current_hp = 0
+        if defending_pokemon.current_hp - move_damage / 5 < 0:
+            defending_pokemon.current_hp = 0
         else:
-            pokemon2.current_hp -= move_damage / 5
+            defending_pokemon.current_hp -= move_damage / 5
 
     except AttributeError:
 
-        if pokemon2.stats['HP'] - move_damage / 5 < 0:
-            pokemon2.stats['HP'] = 0
+        if defending_pokemon.stats['HP'] - move_damage / 5 < 0:
+            defending_pokemon.stats['HP'] = 0
         else:
-            pokemon2.stats['HP'] -= move_damage / 5
+            defending_pokemon.stats['HP'] -= move_damage / 5
 
-    print('%s used %s!' % (pokemon1.name, pokemon1_move['Name']))
+    print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
     if effectiveness_message is not None:
         print(effectiveness_message)
 
     try:
-        print('%s\'s HP is now %s' % (pokemon2.name, pokemon2.current_hp))
+        print('%s\'s HP is now %s' % (defending_pokemon.name, defending_pokemon.current_hp))
     except AttributeError:
-        print('%s\'s HP is now %s' % (pokemon2.name, pokemon2.stats['HP']))
+        print('%s\'s HP is now %s' % (defending_pokemon.name, defending_pokemon.stats['HP']))
 
 def move_type_check(move_type, opposing_pokemon_type):
     print('The move type is %s, the opposing Pokemon\'s type is %s' %
