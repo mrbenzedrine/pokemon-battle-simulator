@@ -217,52 +217,6 @@ def execute_move(pokemon1, pokemon2, pokemon1_move):
     except AttributeError:
         print('%s\'s HP is now %s' % (pokemon2.name, pokemon2.stats['HP']))
 
-
-# def opponent_execute_move(their_pokemon, their_move, my_pokemon):
-#
-#     damage_multiplier = move_type_check(their_move['Type'], my_pokemon.type)
-#     their_move_damage = their_move['Power'] * damage_multiplier
-#
-#     if my_pokemon.stats['HP'] - their_move_damage / 5 < 0:
-#         # Just set it to zero, can't have negative HP!
-#         my_pokemon.stats['HP'] = 0
-#     else:
-#         my_pokemon.stats['HP'] -= their_move_damage / 5
-#
-#     print('Their %s used %s!' % (their_pokemon.name, their_move['Name']))
-#     print('Your %s\'s HP is now %s' % (my_pokemon.name, my_pokemon.stats['HP']))
-#
-#
-# def user_execute_move(my_pokemon, my_move, their_pokemon):
-#
-#     damage_multiplier = move_type_check(my_move['Type'], their_pokemon.type)
-#     my_move_damage = my_move['Power'] * damage_multiplier
-#
-#     # Set the string for the damage multiplier
-#     # ie, super effective, not very effective etc
-#
-#     effectiveness_message = None
-#
-#     if damage_multiplier == 1:
-#         pass
-#     elif damage_multiplier == 1/2:
-#         # Print not very effective
-#         effectiveness_message = 'It\'s not very effective...'
-#     elif damage_multiplier == 2:
-#         effectiveness_message = 'It\'s super effective!'
-#
-#     if their_pokemon.stats['HP'] - my_move_damage / 5 < 0:
-#         # Set it to zero instead
-#         their_pokemon.stats['HP'] = 0
-#     else:
-#         their_pokemon.stats['HP'] -= my_move_damage / 5
-#
-#     print('Your %s used %s!' % (my_pokemon.name, my_move['Name']))
-#     if effectiveness_message is not None:
-#         print(effectiveness_message)
-#     print('Their %s\'s HP is now %s' % (their_pokemon.name, their_pokemon.stats['HP']))
-
-
 def move_type_check(move_type, opposing_pokemon_type):
     print('The move type is %s, the opposing Pokemon\'s type is %s' %
           (move_type, opposing_pokemon_type))
