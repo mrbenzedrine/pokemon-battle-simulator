@@ -58,7 +58,7 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
 
         execute_move(my_pokemon, their_pokemon, my_move)
 
-        if their_pokemon.stats['HP'] <= 0:
+        if their_pokemon.stats['HP'] == 0:
             return
         else:
             execute_move(their_pokemon, my_pokemon, their_move)
@@ -69,7 +69,7 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
 
         execute_move(their_pokemon, my_pokemon, their_move)
 
-        if my_pokemon.current_hp <= 0:
+        if my_pokemon.current_hp == 0:
             return
         else:
             execute_move(my_pokemon, their_pokemon, my_move)
