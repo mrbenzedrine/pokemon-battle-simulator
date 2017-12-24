@@ -20,9 +20,6 @@ class UserPokemon(Pokemon):
             self.current_hp = self.create_initial_state_file()['current_hp']
             print('No previous save state existed, so creating a fresh one')
 
-    def show_current_xp(self):
-        print(self.current_xp)
-
     def show_xp_to_next_level(self):
         print(self.level_up_xp - self.current_xp)
 
