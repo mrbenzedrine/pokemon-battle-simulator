@@ -19,10 +19,10 @@ def battle(my_pokemon, their_pokemon):
 
             fight(my_pokemon, their_pokemon)
 
-    if my_pokemon.current_hp <= 0:
+    if my_pokemon.current_hp == 0:
         print('Your %s has fainted!' % my_pokemon.name)
         my_pokemon.update_state_file()
-    if their_pokemon.stats['HP'] <= 0:
+    if their_pokemon.stats['HP'] == 0:
         print('Their %s has fainted!' % their_pokemon.name)
 
         # should then gain some xp for beating the opponent
