@@ -1,38 +1,5 @@
 from fight import fight
 
-def choose_action(pokemon_name):
-
-    available_actions = [
-        'Fight',
-        'Bag',
-        'Pokemon',
-        'Run'
-    ]
-    chosen_action = None
-    valid_action_chosen = False
-
-    while valid_action_chosen is False:
-        print('\nWhat will %s do?' % pokemon_name)
-
-        for action in available_actions:
-            print(action)
-        print('\n')
-        choice = input()
-
-        for action in available_actions:
-            if action == choice:
-                valid_action_chosen = True
-                chosen_action = choice
-                break
-            else:
-                valid_action_chosen = False
-
-        if valid_action_chosen is False:
-            print('That action doesn\'t exist please choose a'
-                  ' valid action')
-    return chosen_action
-
-
 def battle(my_pokemon, their_pokemon):
 
     print("Current HP is %s" % my_pokemon.current_hp)
@@ -64,3 +31,35 @@ def battle(my_pokemon, their_pokemon):
 
     print('Your %s\'s HP is %s' % (my_pokemon.name, my_pokemon.current_hp))
     print('Their %s\'s HP is %s' % (their_pokemon.name, their_pokemon.stats['HP']))
+
+def choose_action(pokemon_name):
+
+    available_actions = [
+        'Fight',
+        'Bag',
+        'Pokemon',
+        'Run'
+    ]
+    chosen_action = None
+    valid_action_chosen = False
+
+    while valid_action_chosen is False:
+        print('\nWhat will %s do?' % pokemon_name)
+
+        for action in available_actions:
+            print(action)
+        print('\n')
+        choice = input()
+
+        for action in available_actions:
+            if action == choice:
+                valid_action_chosen = True
+                chosen_action = choice
+                break
+            else:
+                valid_action_chosen = False
+
+        if valid_action_chosen is False:
+            print('That action doesn\'t exist please choose a'
+                  ' valid action')
+    return chosen_action
