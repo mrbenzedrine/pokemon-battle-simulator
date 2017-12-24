@@ -74,7 +74,7 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
         else:
             execute_move(my_pokemon, their_pokemon, my_move)
 
-def execute_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+def execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
     damage_multiplier = move_type_check(attacking_pokemon_move['Type'], defending_pokemon.type)
     move_damage = attacking_pokemon_move['Power'] * damage_multiplier
@@ -125,3 +125,16 @@ def move_type_check(move_type, opposing_pokemon_type):
     damage_multiplier = typeChart[move_type][opposing_pokemon_type]
     print('damage_multipler is: %s' % damage_multiplier)
     return damage_multiplier
+
+def execute_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+
+    # Check if physical attack or status attack move
+
+    if(attacking_pokemon_move['Category'] == 'Physical'):
+        execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+    else:
+        execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+
+def execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+
+    pass
