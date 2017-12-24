@@ -3,8 +3,6 @@ from type_chart import typeChart
 
 def choose_action(pokemon_name):
 
-    # Choose between the options 'Fight', 'Bag', 'Pokemon' and 'Run'
-
     available_actions = [
         'Fight',
         'Bag',
@@ -16,8 +14,6 @@ def choose_action(pokemon_name):
 
     while valid_action_chosen is False:
         print('\nWhat will %s do?' % pokemon_name)
-
-        # Print out action choices
 
         for action in available_actions:
             print(action)
@@ -53,15 +49,12 @@ def battle(my_pokemon, their_pokemon):
             chosen_action == 'Pokemon' or \
                 chosen_action == 'Run':
 
-            # Have all of them call the fight function for now, no idea
-            # how to do the bag function and stuff yet =P
+            # Have all of them call the fight function for now
 
             fight(my_pokemon, their_pokemon)
 
     if my_pokemon.current_hp <= 0:
         print('Your %s has fainted!' % my_pokemon.name)
-        # Probably shouldn't be calling update_state_file directly, but
-        # just do it for now =P
         my_pokemon.update_state_file()
     if their_pokemon.stats['HP'] <= 0:
         print('Their %s has fainted!' % their_pokemon.name)
@@ -70,14 +63,11 @@ def battle(my_pokemon, their_pokemon):
 
         my_pokemon.update_xp(50)
 
-    # print('Broken out of battle\'s while loop')
     print('Your %s\'s HP is %s' % (my_pokemon.name, my_pokemon.current_hp))
     print('Their %s\'s HP is %s' % (their_pokemon.name, their_pokemon.stats['HP']))
 
 
 def fight(my_pokemon, their_pokemon):
-
-    # 'Fight' action
 
     my_chosen_move = choose_move(my_pokemon, my_pokemon.moves)
     # Make the opponent's Squirtle use Tackle as default for now
@@ -89,25 +79,16 @@ def fight(my_pokemon, their_pokemon):
 
     opponent_moves_first = who_moves_first(my_pokemon, their_pokemon)
 
-    # Time for battle now!
-
     perform_one_round(opponent_moves_first, my_pokemon, my_chosen_move,
                       their_pokemon, their_chosen_move)
 
 
 def choose_move(my_pokemon, moves):
 
-    # So this is a preliminary section, we're deciding
-    # what move to make, so it needs to keep looping back
-    # to the start of the move-choosing process if an invalid
-    # move is chose, how to do that?
-
     chosen_move = None
     valid_move_chosen = False
     while valid_move_chosen is False:
         print('\nWhat move do you choose?')
-
-        # Print out move choices
 
         for move in moves:
             print(move)
@@ -129,8 +110,6 @@ def choose_move(my_pokemon, moves):
 
 
 def who_moves_first(my_pokemon, their_pokemon):
-
-    # Decide who goes first
 
     opponent_moves_first = None
     if my_pokemon.stats['Speed'] >= their_pokemon.stats['Speed']:
@@ -181,10 +160,8 @@ def execute_move(pokemon1, pokemon2, pokemon1_move):
     if damage_multiplier == 1:
         pass
     elif damage_multiplier == 1/2:
-        # Print not very effective
         effectiveness_message = 'It\'s not very effective...'
     elif damage_multiplier == 2:
-        # Print super effective
         effectiveness_message = 'It\'s super effective!'
 
     # Opponent Pokemon don't need to have a separate value for current HP
@@ -195,7 +172,6 @@ def execute_move(pokemon1, pokemon2, pokemon1_move):
 
     try:
         if pokemon2.current_hp - move_damage / 5 < 0:
-            # Just set it to zero, can't have negative HP!
             pokemon2.current_hp = 0
         else:
             pokemon2.current_hp -= move_damage / 5
@@ -203,7 +179,6 @@ def execute_move(pokemon1, pokemon2, pokemon1_move):
     except AttributeError:
 
         if pokemon2.stats['HP'] - move_damage / 5 < 0:
-            # Just set it to zero, can't have negative HP!
             pokemon2.stats['HP'] = 0
         else:
             pokemon2.stats['HP'] -= move_damage / 5
