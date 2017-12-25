@@ -76,20 +76,10 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
 
 def execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-    damage_multiplier = move_type_check(attacking_pokemon_move['Type'], defending_pokemon.type)
+    move_type_check_result = move_type_check(attacking_pokemon_move['Type'], defending_pokemon)
+    damage_multiplier = move_type_check_result[0]
+    effectiveness_message = move_type_check_result[1]
     move_damage = attacking_pokemon_move['Power'] * damage_multiplier
-
-    # Set the string for the damage multiplier
-    # ie, super effective, not very effective etc
-
-    effectiveness_message = None
-
-    if damage_multiplier == 1:
-        pass
-    elif damage_multiplier == 1/2:
-        effectiveness_message = 'It\'s not very effective...'
-    elif damage_multiplier == 2:
-        effectiveness_message = 'It\'s super effective!'
 
     # Opponent Pokemon don't need to have a separate value for current HP
     # vs the value of their HP stat, so need to check whether defending_pokemon.current_hp
@@ -119,12 +109,26 @@ def execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemo
     except AttributeError:
         print('%s\'s HP is now %s' % (defending_pokemon.name, defending_pokemon.stats['HP']))
 
-def move_type_check(move_type, opposing_pokemon_type):
-    print('The move type is %s, the opposing Pokemon\'s type is %s' %
-          (move_type, opposing_pokemon_type))
-    damage_multiplier = typeChart[move_type][opposing_pokemon_type]
+def move_type_check(attacking_move_type, defending_pokemon):
+
+    print('The attacking move type is %s, the defending Pokemon\'s type is %s' %
+          (attacking_move_type, defending_pokemon.type))
+    damage_multiplier = typeChart[attacking_move_type][defending_pokemon.type]
     print('damage_multipler is: %s' % damage_multiplier)
-    return damage_multiplier
+
+    # Check what message, if any, should be returned regarding the effectiveness of the
+    # type of the move against the type of the defending pokemon
+
+    effectiveness_message = None
+
+    if damage_multiplier == 0:
+        effectiveness_message = 'It doesn\'t affect ' + defending_pokemon.name + '...'
+    elif damage_multiplier == 1/2:
+        effectiveness_message = 'It\'s not very effective...'
+    elif damage_multiplier == 2:
+        effectiveness_message = 'It\'s super effective!'
+
+    return (damage_multiplier, effectiveness_message)
 
 def execute_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
