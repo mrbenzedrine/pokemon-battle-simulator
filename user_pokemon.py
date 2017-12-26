@@ -57,10 +57,10 @@ class UserPokemon(Pokemon):
     def increase_stats_after_level_up(self):
         for key in self.stats:
             if key != 'HP':
-                self.stats[key] *= 1.2
+                self.stats[key] = round(1.2 * self.stats[key])
             else:
-                self.stats['HP'][0] *= 1.2
-                self.stats['HP'][1] *= 1.2
+                self.stats['HP'][0] = round(1.2 * self.stats['HP'][0])
+                self.stats['HP'][1] = round(1.2 * self.stats['HP'][1])
             print(self.stats[key])
 
     def create_initial_state_file(self):
