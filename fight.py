@@ -58,7 +58,7 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
 
         execute_move(my_pokemon, their_pokemon, my_move)
 
-        if their_pokemon.stats['HP'] == 0:
+        if their_pokemon.stats['HP'][0] == 0:
             return
         else:
             execute_move(their_pokemon, my_pokemon, their_move)
@@ -69,7 +69,7 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
 
         execute_move(their_pokemon, my_pokemon, their_move)
 
-        if my_pokemon.current_hp == 0:
+        if my_pokemon.stats['HP'][0] == 0:
             return
         else:
             execute_move(my_pokemon, their_pokemon, my_move)
@@ -88,17 +88,17 @@ def execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemo
     # for now?
 
     try:
-        if defending_pokemon.current_hp - move_damage / 5 < 0:
-            defending_pokemon.current_hp = 0
+        if defending_pokemon.stats['HP'][0] - move_damage / 5 < 0:
+            defending_pokemon.stats['HP'][0] = 0
         else:
-            defending_pokemon.current_hp -= move_damage / 5
+            defending_pokemon.stats['HP'][0] -= move_damage / 5
 
     except AttributeError:
 
-        if defending_pokemon.stats['HP'] - move_damage / 5 < 0:
-            defending_pokemon.stats['HP'] = 0
+        if defending_pokemon.stats['HP'][0] - move_damage / 5 < 0:
+            defending_pokemon.stats['HP'][0] = 0
         else:
-            defending_pokemon.stats['HP'] -= move_damage / 5
+            defending_pokemon.stats['HP'][0] -= move_damage / 5
 
     print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
     if effectiveness_message is not None:

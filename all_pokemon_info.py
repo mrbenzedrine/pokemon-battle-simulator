@@ -2,7 +2,7 @@ allPokemon = {
     'Bulbasaur': {
         'type': 'Grass',
         'stats': {
-            'HP': 30,
+            'HP': [30, 30],
             'Attack': 15,
             'SpecialAttack': 12,
             'Defense': 10,
@@ -31,7 +31,7 @@ allPokemon = {
     'Charmander': {
         'type': 'Fire',
         'stats': {
-            'HP': 30,
+            'HP': [30, 30],
             'Attack': 15,
             'SpecialAttack': 13,
             'Defense': 10,
@@ -60,7 +60,7 @@ allPokemon = {
     'Squirtle': {
         'type': 'Water',
         'stats': {
-            'HP': 30,
+            'HP': [30, 30],
             'Attack': 10,
             'SpecialAttack': 13,
             'Defense': 15,

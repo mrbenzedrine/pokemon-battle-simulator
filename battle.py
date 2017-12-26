@@ -2,9 +2,9 @@ from fight import fight
 
 def battle(my_pokemon, their_pokemon):
 
-    print("Current HP is %s" % my_pokemon.current_hp)
+    print("Current HP is %s" % my_pokemon.stats['HP'][0])
 
-    while my_pokemon.current_hp > 0 and their_pokemon.stats['HP'] > 0:
+    while my_pokemon.stats['HP'][0] > 0 and their_pokemon.stats['HP'][0] > 0:
 
         # First need to choose an action (fight, bag, pokemon, run)
 
@@ -19,18 +19,18 @@ def battle(my_pokemon, their_pokemon):
 
             fight(my_pokemon, their_pokemon)
 
-    if my_pokemon.current_hp == 0:
+    if my_pokemon.stats['HP'][0] == 0:
         print('Your %s has fainted!' % my_pokemon.name)
         my_pokemon.update_state_file()
-    if their_pokemon.stats['HP'] == 0:
+    if their_pokemon.stats['HP'][0] == 0:
         print('Their %s has fainted!' % their_pokemon.name)
 
         # should then gain some xp for beating the opponent
 
         my_pokemon.update_xp(50)
 
-    print('Your %s\'s HP is %s' % (my_pokemon.name, my_pokemon.current_hp))
-    print('Their %s\'s HP is %s' % (their_pokemon.name, their_pokemon.stats['HP']))
+    print('Your %s\'s HP is %s' % (my_pokemon.name, my_pokemon.stats['HP'][0]))
+    print('Their %s\'s HP is %s' % (their_pokemon.name, their_pokemon.stats['HP'][0]))
 
 def choose_action(pokemon_name):
 
