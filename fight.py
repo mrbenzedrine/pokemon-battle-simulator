@@ -42,7 +42,6 @@ def choose_move(my_pokemon, moves):
 
 def who_moves_first(my_pokemon, their_pokemon):
 
-    opponent_moves_first = None
     if my_pokemon.stats['Speed'] >= their_pokemon.stats['Speed']:
         opponent_moves_first = False
     else:
