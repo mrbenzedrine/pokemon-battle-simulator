@@ -40,10 +40,8 @@ def choose_action(pokemon_name):
         'Pokemon',
         'Run'
     ]
-    chosen_action = None
-    valid_action_chosen = False
 
-    while valid_action_chosen is False:
+    while True:
         print('\nWhat will %s do?' % pokemon_name)
 
         for action in available_actions:
@@ -51,15 +49,9 @@ def choose_action(pokemon_name):
         print('\n')
         choice = input()
 
-        for action in available_actions:
-            if action == choice:
-                valid_action_chosen = True
-                chosen_action = choice
-                break
-            else:
-                valid_action_chosen = False
+        if choice in available_actions:
+            break
+        else:
+            print('That action doesn\'t exist, please choose a valid action')
 
-        if valid_action_chosen is False:
-            print('That action doesn\'t exist please choose a'
-                  ' valid action')
-    return chosen_action
+    return choice
