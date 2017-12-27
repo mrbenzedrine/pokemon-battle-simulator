@@ -17,9 +17,7 @@ def fight(my_pokemon, their_pokemon):
 
 def choose_move(my_pokemon, moves):
 
-    chosen_move = None
-    valid_move_chosen = False
-    while valid_move_chosen is False:
+    while True:
         print('\nWhat move do you choose?')
 
         for move in moves:
@@ -27,15 +25,10 @@ def choose_move(my_pokemon, moves):
         print('\n')
         choice = input()
 
-        for move in moves:
-            if choice == move:
-                valid_move_chosen = True
-                chosen_move = my_pokemon.moves[move]
-                break
-            else:
-                valid_move_chosen = False
-
-        if valid_move_chosen is False:
+        if(choice in moves):
+            chosen_move = my_pokemon.moves[choice]
+            break
+        else:
             print('That move doesn\'t exist, please choose a valid move')
 
     return chosen_move
