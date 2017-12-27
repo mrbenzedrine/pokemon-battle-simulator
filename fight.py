@@ -55,7 +55,7 @@ def perform_one_round(opponent_moves_first, my_pokemon, my_move,
         else:
             execute_move(their_pokemon, my_pokemon, their_move)
 
-    elif opponent_moves_first is True:
+    else:
         # They get to move first, so reverse the order of
         # move execution
 
