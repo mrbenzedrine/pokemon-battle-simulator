@@ -45,26 +45,23 @@ def who_moves_first(my_pokemon, their_pokemon):
 def perform_one_round(opponent_moves_first, my_pokemon, my_move,
                       their_pokemon, their_move):
 
-    if opponent_moves_first is False:
-        # We get to move first, time to execute the move
-
-        execute_move(my_pokemon, their_pokemon, my_move)
-
-        if their_pokemon.stats['HP'][0] == 0:
-            return
-        else:
-            execute_move(their_pokemon, my_pokemon, their_move)
-
+    if opponent_moves_first:
+        first_pokemon = their_pokemon
+        first_pokemon_move = their_move
+        second_pokemon = my_pokemon
+        second_pokemon_move = my_move
     else:
-        # They get to move first, so reverse the order of
-        # move execution
+        first_pokemon = my_pokemon
+        first_pokemon_move = my_move
+        second_pokemon = their_pokemon
+        second_pokemon_move = their_move
 
-        execute_move(their_pokemon, my_pokemon, their_move)
+    execute_move(first_pokemon, second_pokemon, first_pokemon_move)
 
-        if my_pokemon.stats['HP'][0] == 0:
-            return
-        else:
-            execute_move(my_pokemon, their_pokemon, my_move)
+    if second_pokemon.stats['HP'][0] == 0:
+        return
+    else:
+        execute_move(second_pokemon, first_pokemon, second_pokemon_move)
 
 def execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
