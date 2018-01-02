@@ -22,7 +22,8 @@ allPokemon = {
                 'Name': 'Growl',
                 'Type': 'Normal',
                 'Category': 'Status',
-                'Power': None,
+                'AffectedStat': 'Attack',
+                'Power': 0.9,
                 'Accuracy': 1,
                 'PP': 40
             }
@@ -51,7 +52,8 @@ allPokemon = {
                 'Name': 'Growl',
                 'Type': 'Normal',
                 'Category': 'Status',
-                'Power': None,
+                'AffectedStat': 'Attack',
+                'Power': 0.9,
                 'Accuracy': 1,
                 'PP': 40
             }
@@ -80,7 +82,8 @@ allPokemon = {
                 'Name': 'Tail Whip',
                 'Type': 'Normal',
                 'Category': 'Status',
-                'Power': None,
+                'AffectedStat': 'Defense',
+                'Power': 0.9,
                 'Accuracy': 1,
                 'PP': 30
             }
