@@ -109,4 +109,13 @@ def execute_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
 def execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-    pass
+    move_type_check_result = move_type_check(attacking_pokemon_move['Type'], defending_pokemon)
+    damage_multiplier = move_type_check_result[0]
+    effectiveness_message = move_type_check_result[1]
+
+    print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
+    if damage_multiplier != 0:
+        attacking_pokemon.use_status_move(attacking_pokemon_move, attacking_pokemon_move['Power'], defending_pokemon)
+        print('%s\'s %s stat is now %s' % (defending_pokemon.name, attacking_pokemon_move['AffectedStat'], defending_pokemon.stats[attacking_pokemon_move['AffectedStat']]))
+    else:
+        print(effectiveness_message)
