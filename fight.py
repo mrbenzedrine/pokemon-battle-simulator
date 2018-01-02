@@ -69,7 +69,7 @@ def execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemo
     damage_multiplier = move_type_check_result[0]
     effectiveness_message = move_type_check_result[1]
 
-    attacking_pokemon.attack(attacking_pokemon_move, damage_multiplier, defending_pokemon)
+    attacking_pokemon.use_physical_move(attacking_pokemon_move, damage_multiplier, defending_pokemon)
 
     print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
     if effectiveness_message is not None:
