@@ -21,3 +21,11 @@ class Pokemon:
             self.stats['HP'][0] = 0
         else:
             self.stats['HP'][0] -= damage
+
+    def use_status_move(self, move, stat_multiplier, enemy_pokemon):
+
+        enemy_pokemon.multiply_stat(move['AffectedStat'], stat_multiplier)
+
+    def multiply_stat(self, stat, stat_multiplier):
+
+        self.stats[stat] = round(stat_multiplier * self.stats[stat])
