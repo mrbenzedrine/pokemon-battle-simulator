@@ -19,7 +19,7 @@ class Pokemon:
 
     def use_physical_move(self, move, damage_multiplier, enemy_pokemon):
 
-        move_damage = (move['Power'] * damage_multiplier) / 5
+        move_damage = round(move['Power'] * damage_multiplier / 5)
         enemy_pokemon.subtract_hp(move_damage)
 
     def subtract_hp(self, damage):
