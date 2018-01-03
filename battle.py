@@ -156,12 +156,17 @@ class Battle():
         damage_multiplier = move_type_check_result[0]
         effectiveness_message = move_type_check_result[1]
 
+        if attacking_pokemon_move['doesAffectUser']:
+            target_pokemon = attacking_pokemon
+        else:
+            target_pokemon = defending_pokemon
+
         print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
         if damage_multiplier != 0:
-            attacking_pokemon.use_status_move(attacking_pokemon_move, attacking_pokemon_move['Power'], defending_pokemon)
+            attacking_pokemon.use_status_move(attacking_pokemon_move, attacking_pokemon_move['Power'], target_pokemon)
             affected_stat = attacking_pokemon_move['AffectedStat']
-            stat_with_applied_multiplier = round(defending_pokemon.stats[affected_stat] * defending_pokemon.stats_multipliers[affected_stat])
-            print('%s\'s %s stat is now %s' % (defending_pokemon.name, affected_stat, stat_with_applied_multiplier))
+            stat_with_applied_multiplier = round(target_pokemon.stats[affected_stat] * target_pokemon.stats_multipliers[affected_stat])
+            print('%s\'s %s stat is now %s' % (target_pokemon.name, affected_stat, stat_with_applied_multiplier))
         else:
             print(effectiveness_message)
 
