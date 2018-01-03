@@ -36,3 +36,8 @@ class Pokemon:
     def multiply_stat(self, stat, stat_multiplier):
 
         self.stats_multipliers[stat] = stat_multiplier * self.stats_multipliers[stat]
+
+    def reset_stat_multipliers(self):
+
+        for stat in self.stats_multipliers:
+            self.stats_multipliers[stat] = 1

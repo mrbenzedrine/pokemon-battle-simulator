@@ -39,6 +39,11 @@ class Battle():
         print('Your %s\'s HP is %s' % (self.user_pokemon.name, self.user_pokemon.stats['HP'][0]))
         print('Their %s\'s HP is %s' % (self.enemy_pokemon.name, self.enemy_pokemon.stats['HP'][0]))
 
+        # Reset the stats multipliers of both pokemon
+
+        self.user_pokemon.reset_stat_multipliers()
+        self.enemy_pokemon.reset_stat_multipliers()
+
     def choose_action(self):
 
         available_actions = [
