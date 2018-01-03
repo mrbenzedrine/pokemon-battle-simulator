@@ -157,7 +157,9 @@ class Battle():
         print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
         if damage_multiplier != 0:
             attacking_pokemon.use_status_move(attacking_pokemon_move, attacking_pokemon_move['Power'], defending_pokemon)
-            print('%s\'s %s stat is now %s' % (defending_pokemon.name, attacking_pokemon_move['AffectedStat'], defending_pokemon.stats[attacking_pokemon_move['AffectedStat']]))
+            affected_stat = attacking_pokemon_move['AffectedStat']
+            stat_with_applied_multiplier = round(defending_pokemon.stats[affected_stat] * defending_pokemon.stats_multipliers[affected_stat])
+            print('%s\'s %s stat is now %s' % (defending_pokemon.name, affected_stat, stat_with_applied_multiplier))
         else:
             print(effectiveness_message)
 

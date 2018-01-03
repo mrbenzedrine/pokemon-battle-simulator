@@ -9,6 +9,13 @@ class Pokemon:
         self.stats = allPokemon[name]['stats']
         self.moves = allPokemon[name]['moves']
         self.level = 5
+        self.stats_multipliers = {
+            'Attack': 1,
+            'SpecialAttack': 1,
+            'Defense': 1,
+            'SpecialDefense': 1,
+            'Speed': 1
+        }
 
     def use_physical_move(self, move, damage_multiplier, enemy_pokemon):
 
@@ -28,4 +35,4 @@ class Pokemon:
 
     def multiply_stat(self, stat, stat_multiplier):
 
-        self.stats[stat] = round(stat_multiplier * self.stats[stat])
+        self.stats_multipliers[stat] = stat_multiplier * self.stats_multipliers[stat]
