@@ -24,6 +24,7 @@ allPokemon = {
                 'Type': 'Normal',
                 'Category': 'Status',
                 'AffectedStat': 'Attack',
+                'doesAffectUser': False,
                 'Power': 0.9,
                 'Accuracy': 1,
                 'PP': 40
@@ -55,6 +56,7 @@ allPokemon = {
                 'Type': 'Normal',
                 'Category': 'Status',
                 'AffectedStat': 'Attack',
+                'doesAffectUser': False,
                 'Power': 0.9,
                 'Accuracy': 1,
                 'PP': 40
@@ -86,6 +88,7 @@ allPokemon = {
                 'Type': 'Normal',
                 'Category': 'Status',
                 'AffectedStat': 'Defense',
+                'doesAffectUser': False,
                 'Power': 0.9,
                 'Accuracy': 1,
                 'PP': 30
