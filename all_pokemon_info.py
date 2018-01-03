@@ -14,6 +14,7 @@ allPokemon = {
                 'Name': 'Tackle',
                 'Type': 'Grass',
                 'Category': 'Physical',
+                'DependentStat' : 'Attack',
                 'Power': 50,
                 'Accuracy': 1,
                 'PP': 35
@@ -44,6 +45,7 @@ allPokemon = {
                 'Name': 'Scratch',
                 'Type': 'Normal',
                 'Category': 'Physical',
+                'DependentStat' : 'Attack',
                 'Power': 40,
                 'Accuracy': 1,
                 'PP': 35
@@ -74,6 +76,7 @@ allPokemon = {
                 'Name': 'Tackle',
                 'Type': 'Normal',
                 'Category': 'Physical',
+                'DependentStat' : 'Attack',
                 'Power': 0,  # Made zero for the sake of testing exp gain of user pokemon
                 'Accuracy': 1,
                 'PP': 35
