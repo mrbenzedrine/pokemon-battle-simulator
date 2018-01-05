@@ -114,7 +114,10 @@ class Battle():
 
     def who_moves_first(self):
 
-        if self.user_pokemon.stats['Speed'] >= self.enemy_pokemon.stats['Speed']:
+        user_speed = round(self.user_pokemon.stats['Speed'] * self.user_pokemon.stats_multipliers['Speed'])
+        enemy_speed = round(self.enemy_pokemon.stats['Speed'] * self.enemy_pokemon.stats_multipliers['Speed'])
+
+        if user_speed >= enemy_speed:
             opponent_moves_first = False
         else:
             opponent_moves_first = True
