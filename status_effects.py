@@ -4,5 +4,9 @@ status_effects_stat_changes = {
         'Attack': 0.5    
     },
 
-    'Poisoned': None
+    'Poisoned': None,
+
+    'Paralyzed': {
+        'Speed': 0.25
+    }
 }
