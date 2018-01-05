@@ -12,12 +12,14 @@ class UserPokemon(Pokemon):
             self.current_xp = self.load_last_state()['current_xp']
             self.level_up_xp = self.load_last_state()['level_up_xp']
             self.stats['HP'] = self.load_last_state()['HP']
+            self.status_condition = self.load_last_state()['status_condition']
             print(' Previous save state existed, so loading it')
         except IOError:
             self.level = self.create_initial_state_file()['level']
             self.current_xp = self.create_initial_state_file()['current_xp']
             self.level_up_xp = self.create_initial_state_file()['level_up_xp']
             self.stats['HP'] = self.create_initial_state_file()['HP']
+            self.status_condition = self.create_initial_state_file()['status_condition']
             print('No previous save state existed, so creating a fresh one')
 
     def show_xp_to_next_level(self):
@@ -71,7 +73,8 @@ class UserPokemon(Pokemon):
             'level': 5,
             'current_xp': 0,
             'level_up_xp': 50,
-            'HP': self.stats['HP']
+            'HP': self.stats['HP'],
+            'status_condition': self.status_condition
         }
         out_file = open(self.name + '_state', 'wb')
         pickle.dump(initial_pokemon_state, out_file)
@@ -82,7 +85,8 @@ class UserPokemon(Pokemon):
             'level': self.level,
             'current_xp': self.current_xp,
             'level_up_xp': self.level_up_xp,
-            'HP': self.stats['HP']
+            'HP': self.stats['HP'],
+            'status_condition': self.status_condition
         }
         out_file = open(self.name + '_state', 'wb')
         pickle.dump(new_pokemon_state, out_file)
