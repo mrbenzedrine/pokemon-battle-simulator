@@ -170,7 +170,7 @@ class Battle():
             'Poison': 'Poisoned'
         }.get(attacking_pokemon_move['Type'], None)
 
-        if potential_status_effect is not None:
+        if potential_status_effect is not None and defending_pokemon.status_condition is not potential_status_effect:
 
             is_status_effect_inflicted = self.status_effect_probability_roll()
 
