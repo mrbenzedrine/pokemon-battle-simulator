@@ -195,7 +195,8 @@ class Battle():
         potential_status_effect = {
             'Fire': 'Burned',
             'Poison': 'Poisoned',
-            'Electric': 'Paralyzed'
+            'Electric': 'Paralyzed',
+            'Ice': 'Frozen'
         }.get(attacking_pokemon_move['Type'], None)
 
         if potential_status_effect is not None and defending_pokemon.status_condition is not potential_status_effect:
