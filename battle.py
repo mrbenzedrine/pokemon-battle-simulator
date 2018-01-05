@@ -149,17 +149,25 @@ class Battle():
 
         # Check if attacking_pokemon has any status effects that could prevent using a move
 
-        relevant_status_effects = ['Paralyzed']
+        relevant_status_effects = ['Paralyzed', 'Frozen']
         is_able_to_move = True # let the default value be True
 
         if attacking_pokemon.status_condition in relevant_status_effects:
             status_effect_probability_function = {
-                'Paralyzed': self.paralyzed_status_effect_roll
+                'Paralyzed': self.paralyzed_status_effect_roll,
+                'Frozen': self.frozen_status_effect_roll
             }.get(attacking_pokemon.status_condition, None)
 
             is_able_to_move = status_effect_probability_function()
 
         if is_able_to_move:
+
+            if attacking_pokemon.status_condition is 'Frozen':
+
+                # Pokemon then thaws
+
+                attacking_pokemon.apply_status_condition(None, None)
+                print("%s thawed out!" % attacking_pokemon.name)
 
             # Check if physical attack or status attack move
 
@@ -262,3 +270,14 @@ class Battle():
             is_able_to_move = True
 
         return is_able_to_move
+
+    def frozen_status_effect_roll(self):
+
+        random_int = random.randint(0,4)
+
+        if random_int == 0:
+            is_thawed = True
+        else:
+            is_thawed = False
+
+        return is_thawed
