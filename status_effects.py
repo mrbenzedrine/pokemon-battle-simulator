@@ -8,5 +8,7 @@ status_effects_stat_changes = {
 
     'Paralyzed': {
         'Speed': 0.25
-    }
+    },
+
+    'Frozen': None
 }
