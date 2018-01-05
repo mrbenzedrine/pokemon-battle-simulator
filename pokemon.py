@@ -50,3 +50,8 @@ class Pokemon:
         if stat_change != None:
             for stat in stat_change:
                 self.multiply_stat(stat, stat_change[stat])
+
+    def inflict_burn_or_poison_damage(self):
+
+        damage = round(1/8 * self.stats['HP'][1])
+        self.subtract_hp(damage)

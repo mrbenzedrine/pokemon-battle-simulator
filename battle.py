@@ -26,6 +26,16 @@ class Battle():
 
                 self.fight()
 
+            # Check if either pokemon has a burn or poison status effect before moving to another
+            # turn
+
+            if self.user_pokemon.status_condition is 'Poisoned' or self.user_pokemon.status_condition is 'Burned':
+                print("%s is poisoned/burned!" % self.user_pokemon.name)
+                self.user_pokemon.inflict_burn_or_poison_damage()
+            elif self.enemy_pokemon.status_condition is 'Poisoned' or self.enemy_pokemon.status_condition is 'Burned':
+                print("%s is poisoned/burned!" % self.enemy_pokemon.name)
+                self.enemy_pokemon.inflict_burn_or_poison_damage()
+
         if self.user_pokemon.stats['HP'][0] == 0:
             print('Your %s has fainted!' % self.user_pokemon.name)
             self.user_pokemon.update_state_file()
