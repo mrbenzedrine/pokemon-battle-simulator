@@ -16,6 +16,7 @@ class Pokemon:
             'SpecialDefense': 1,
             'Speed': 1
         }
+        self.status_condition = None
 
     def use_physical_move(self, move, damage_multiplier, enemy_pokemon):
 
@@ -41,3 +42,11 @@ class Pokemon:
 
         for stat in self.stats_multipliers:
             self.stats_multipliers[stat] = 1
+
+    def apply_status_condition(self, status_condition, stat_change):
+
+        self.status_condition = status_condition
+
+        if stat_change != None:
+            for stat in stat_change:
+                self.multiply_stat(stat, stat_change[stat])
