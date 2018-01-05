@@ -144,12 +144,28 @@ class Battle():
 
     def execute_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-        # Check if physical attack or status attack move
+        # Check if attacking_pokemon has any status effects that could prevent using a move
 
-        if(attacking_pokemon_move['Category'] == 'Physical'):
-            self.execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+        relevant_status_effects = ['Paralyzed']
+        is_able_to_move = True # let the default value be True
+
+        if attacking_pokemon.status_condition in relevant_status_effects:
+            status_effect_probability_function = {
+                'Paralyzed': self.paralyzed_status_effect_roll
+            }.get(attacking_pokemon.status_condition, None)
+
+            is_able_to_move = status_effect_probability_function()
+
+        if is_able_to_move:
+
+            # Check if physical attack or status attack move
+
+            if(attacking_pokemon_move['Category'] == 'Physical'):
+                self.execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+            else:
+                self.execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
         else:
-            self.execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+            print("%s is unable to move due to its %s status!" % (attacking_pokemon.name, attacking_pokemon.status_condition))
 
     def execute_physical_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
@@ -231,3 +247,14 @@ class Battle():
             is_status_effect_inflicted = False
 
         return is_status_effect_inflicted
+
+    def paralyzed_status_effect_roll(self):
+
+        random_int = random.randint(0,3)
+
+        if random_int == 0:
+            is_able_to_move = False
+        else:
+            is_able_to_move = True
+
+        return is_able_to_move
