@@ -140,32 +140,37 @@ class Battle():
             second_pokemon = self.enemy_pokemon
             second_pokemon_move = enemy_move
 
-        self.execute_move(first_pokemon, second_pokemon, first_pokemon_move)
+        relevant_status_effects = ['Paralyzed', 'Frozen', 'Sleep']
+        is_first_able_to_move = True
+        is_second_able_to_move = True
+
+        if first_pokemon.status_condition in relevant_status_effects:
+            is_first_able_to_move = self.check_if_status_inflicted_pokemon_can_move(first_pokemon)
+
+        if is_first_able_to_move:
+            self.execute_move(first_pokemon, second_pokemon, first_pokemon_move)
 
         if second_pokemon.stats['HP'][0] == 0:
             return
         else:
-            self.execute_move(second_pokemon, first_pokemon, second_pokemon_move)
+            if second_pokemon.status_condition in relevant_status_effects:
+                is_second_able_to_move = self.check_if_status_inflicted_pokemon_can_move(second_pokemon)
 
+            if is_second_able_to_move:
+                self.execute_move(second_pokemon, first_pokemon, second_pokemon_move)
 
-    def execute_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+    def check_if_status_inflicted_pokemon_can_move(self, attacking_pokemon):
 
-        # Check if attacking_pokemon has any status effects that could prevent using a move
+        status_effect_probability_function = {
+            'Paralyzed': self.paralyzed_status_effect_roll,
+            'Frozen': self.frozen_status_effect_roll,
+            'Sleep' : self.check_if_pokemon_should_wake
+        }.get(attacking_pokemon.status_condition, None)
 
-        relevant_status_effects = ['Paralyzed', 'Frozen', 'Sleep']
-        is_able_to_move = True # let the default value be True
-
-        if attacking_pokemon.status_condition in relevant_status_effects:
-            status_effect_probability_function = {
-                'Paralyzed': self.paralyzed_status_effect_roll,
-                'Frozen': self.frozen_status_effect_roll,
-                'Sleep' : self.check_if_pokemon_should_wake
-            }.get(attacking_pokemon.status_condition, None)
-
-            if attacking_pokemon.status_condition is not 'Sleep':
-                is_able_to_move = status_effect_probability_function()
-            else:
-                is_able_to_move = status_effect_probability_function(attacking_pokemon.sleep_turn_info)
+        if attacking_pokemon.status_condition is not 'Sleep':
+            is_able_to_move = status_effect_probability_function()
+        else:
+            is_able_to_move = status_effect_probability_function(attacking_pokemon.sleep_turn_info)
 
         if is_able_to_move:
 
@@ -184,14 +189,19 @@ class Battle():
                 attacking_pokemon.set_sleep_turn_info(None)
                 print("%s woke up!" % attacking_pokemon.name)
 
-            # Check if physical attack or status attack move
-
-            if(attacking_pokemon_move['Category'] == 'Physical'):
-                self.execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
-            else:
-                self.execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
         else:
             print("%s is unable to move due to its %s status!" % (attacking_pokemon.name, attacking_pokemon.status_condition))
+
+        return is_able_to_move
+
+    def execute_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+
+        # Check if physical attack or status attack move
+
+        if(attacking_pokemon_move['Category'] == 'Physical'):
+            self.execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+        else:
+            self.execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
 
     def execute_physical_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
