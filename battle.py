@@ -174,18 +174,18 @@ class Battle():
 
         if is_able_to_move:
 
+            attacking_pokemon.remove_status_condition(status_effects_stat_changes[attacking_pokemon.status_condition])
+
             if attacking_pokemon.status_condition is 'Frozen':
 
                 # Pokemon then thaws
 
-                attacking_pokemon.remove_status_condition(status_effects_stat_changes[attacking_pokemon.status_condition])
                 print("%s thawed out!" % attacking_pokemon.name)
 
             elif attacking_pokemon.status_condition is 'Sleep':
 
                 # Pokemon wakes up
 
-                attacking_pokemon.remove_status_condition(status_effects_stat_changes[attacking_pokemon.status_condition])
                 attacking_pokemon.set_sleep_turn_info(None)
                 print("%s woke up!" % attacking_pokemon.name)
 
