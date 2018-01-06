@@ -166,7 +166,7 @@ class Battle():
 
                 # Pokemon then thaws
 
-                attacking_pokemon.apply_status_condition(None, None)
+                attacking_pokemon.remove_status_condition(status_effects_stat_changes[attacking_pokemon.status_condition])
                 print("%s thawed out!" % attacking_pokemon.name)
 
             # Check if physical attack or status attack move
