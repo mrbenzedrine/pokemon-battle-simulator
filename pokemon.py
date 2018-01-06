@@ -17,6 +17,7 @@ class Pokemon:
             'Speed': 1
         }
         self.status_condition = None
+        self.sleep_turn_info = None
 
     def use_physical_move(self, move, damage_multiplier, enemy_pokemon):
 
@@ -65,3 +66,7 @@ class Pokemon:
                 self.stats_multipliers[stat] *= multiplier_reciprocal
 
         self.status_condition = None
+
+    def set_sleep_turn_info(self, sleep_turn_info):
+
+        self.sleep_turn_info = sleep_turn_info

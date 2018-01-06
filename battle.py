@@ -8,12 +8,15 @@ class Battle():
 
         self.user_pokemon = user_pokemon
         self.enemy_pokemon = enemy_pokemon
+        self.round_number = 0
 
     def battle(self):
 
         print("Current HP is %s" % self.user_pokemon.stats['HP'][0])
 
         while self.user_pokemon.stats['HP'][0] > 0 and self.enemy_pokemon.stats['HP'][0] > 0:
+
+            self.round_number += 1
 
             # First need to choose an action (fight, bag, pokemon, run)
 
@@ -282,3 +285,21 @@ class Battle():
             is_thawed = False
 
         return is_thawed
+
+    def sleep_status_effect_roll(self):
+
+        # The number of turns a pokemon sleeps for is determined beforehand,
+        # so roll to see how many turns the pokemon should sleep for
+
+        turns_to_sleep = random.randint(1,5)
+
+        return turns_to_sleep
+
+    def check_if_pokemon_should_wake(self, turn_info):
+
+        if self.round_number == turn_info[0] + turn_info[1]:
+            should_pokemon_wake = True
+        else:
+            should_pokemon_wake = False
+
+        return should_pokemon_wake
