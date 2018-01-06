@@ -10,5 +10,7 @@ status_effects_stat_changes = {
         'Speed': 0.25
     },
 
-    'Frozen': None
+    'Frozen': None,
+
+    'Sleep': None
 }
