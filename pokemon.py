@@ -55,3 +55,13 @@ class Pokemon:
 
         damage = round(1/8 * self.stats['HP'][1])
         self.subtract_hp(damage)
+
+    def remove_status_condition(self, stat_change):
+
+        if stat_change is not None:
+            # Undo stat change that was caused by the status condition that is inflicted
+            for stat in stat_change:
+                multiplier_reciprocal = 1/stat_change[stat]
+                self.stats_multipliers[stat] *= multiplier_reciprocal
+
+        self.status_condition = None
