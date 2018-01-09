@@ -202,8 +202,10 @@ class Battle():
 
         if(attacking_pokemon_move['Category'] == 'Damage'):
             self.execute_damage_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
-        else:
+        elif attacking_pokemon_move['Category'] is 'Stat':
             self.execute_stat_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+        elif attacking_pokemon_move['Category'] is 'StatusCondition':
+            self.execute_status_condition_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
 
     def execute_damage_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
@@ -327,3 +329,10 @@ class Battle():
             should_pokemon_wake = False
 
         return should_pokemon_wake
+
+    def execute_status_condition_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+
+        status_condition_to_inflict = attacking_pokemon_move['statusConditiontoInflict']
+
+        defending_pokemon.apply_status_condition(status_condition_to_inflict, status_effects_stat_changes[status_condition_to_inflict])
+        print("%s has been %s!" % (defending_pokemon.name, status_condition_to_inflict))
