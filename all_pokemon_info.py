@@ -13,7 +13,7 @@ allPokemon = {
             'Tackle': {
                 'Name': 'Tackle',
                 'Type': 'Grass',
-                'Category': 'Physical',
+                'Category': 'Damage',
                 'DependentStat' : 'Attack',
                 'Power': 50,
                 'Accuracy': 1,
@@ -45,7 +45,7 @@ allPokemon = {
             'Scratch': {
                 'Name': 'Scratch',
                 'Type': 'Normal',
-                'Category': 'Physical',
+                'Category': 'Damage',
                 'DependentStat' : 'Attack',
                 'Power': 40,
                 'Accuracy': 1,
@@ -77,7 +77,7 @@ allPokemon = {
             'Tackle': {
                 'Name': 'Tackle',
                 'Type': 'Normal',
-                'Category': 'Physical',
+                'Category': 'Damage',
                 'DependentStat' : 'Attack',
                 'Power': 0,  # Made zero for the sake of testing exp gain of user pokemon
                 'Accuracy': 1,

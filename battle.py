@@ -198,14 +198,14 @@ class Battle():
 
     def execute_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-        # Check if physical attack or stat-changing attack move
+        # Check if damage attack or stat-changing attack move
 
-        if(attacking_pokemon_move['Category'] == 'Physical'):
-            self.execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+        if(attacking_pokemon_move['Category'] == 'Damage'):
+            self.execute_damage_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
         else:
             self.execute_stat_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
 
-    def execute_physical_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+    def execute_damage_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
         move_type_check_result = self.move_type_check(attacking_pokemon_move['Type'], defending_pokemon)
         damage_multiplier = move_type_check_result[0]
@@ -213,7 +213,7 @@ class Battle():
 
         stat_multiplier = attacking_pokemon.stats_multipliers[attacking_pokemon_move['DependentStat']]
 
-        attacking_pokemon.use_physical_move(attacking_pokemon_move, damage_multiplier * stat_multiplier, defending_pokemon)
+        attacking_pokemon.use_damage_move(attacking_pokemon_move, damage_multiplier * stat_multiplier, defending_pokemon)
 
         print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
         if effectiveness_message is not None:
