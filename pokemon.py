@@ -31,7 +31,7 @@ class Pokemon:
         else:
             self.stats['HP'][0] -= damage
 
-    def use_status_move(self, move, stat_multiplier, enemy_pokemon):
+    def use_stat_move(self, move, stat_multiplier, enemy_pokemon):
 
         enemy_pokemon.multiply_stat(move['AffectedStat'], stat_multiplier)
 

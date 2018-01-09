@@ -198,12 +198,12 @@ class Battle():
 
     def execute_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-        # Check if physical attack or status attack move
+        # Check if physical attack or stat-changing attack move
 
         if(attacking_pokemon_move['Category'] == 'Physical'):
             self.execute_physical_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
         else:
-            self.execute_status_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+            self.execute_stat_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
 
     def execute_physical_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
@@ -236,7 +236,7 @@ class Battle():
 
         print('%s\'s HP is now %s' % (defending_pokemon.name, defending_pokemon.stats['HP'][0]))
 
-    def execute_status_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
+    def execute_stat_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
         move_type_check_result = self.move_type_check(attacking_pokemon_move['Type'], defending_pokemon)
         damage_multiplier = move_type_check_result[0]
@@ -249,7 +249,7 @@ class Battle():
 
         print('%s used %s!' % (attacking_pokemon.name, attacking_pokemon_move['Name']))
         if damage_multiplier != 0:
-            attacking_pokemon.use_status_move(attacking_pokemon_move, attacking_pokemon_move['Power'], target_pokemon)
+            attacking_pokemon.use_stat_move(attacking_pokemon_move, attacking_pokemon_move['Power'], target_pokemon)
             affected_stat = attacking_pokemon_move['AffectedStat']
             stat_with_applied_multiplier = round(target_pokemon.stats[affected_stat] * target_pokemon.stats_multipliers[affected_stat])
             print('%s\'s %s stat is now %s' % (target_pokemon.name, affected_stat, stat_with_applied_multiplier))
