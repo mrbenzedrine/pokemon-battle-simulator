@@ -334,5 +334,8 @@ class Battle():
 
         status_condition_to_inflict = attacking_pokemon_move['statusConditiontoInflict']
 
-        defending_pokemon.apply_status_condition(status_condition_to_inflict, status_effects_stat_changes[status_condition_to_inflict])
-        print("%s has been %s!" % (defending_pokemon.name, status_condition_to_inflict))
+        if defending_pokemon.status_condition is None:
+            defending_pokemon.apply_status_condition(status_condition_to_inflict, status_effects_stat_changes[status_condition_to_inflict])
+            print("%s has been %s!" % (defending_pokemon.name, status_condition_to_inflict))
+        else:
+            print("%s is already %s so cannot be %s!" % (defending_pokemon.name, defending_pokemon.status_condition, status_condition_to_inflict))
