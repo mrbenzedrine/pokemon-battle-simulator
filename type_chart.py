@@ -66,5 +66,8 @@ typeChart = {
         'Rock': 2,
         'Ghost': 1,
         'Dragon': 1/2
+    },
+    'Poison': {
+        'Water': 1
     }
 }

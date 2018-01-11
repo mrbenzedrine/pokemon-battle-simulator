@@ -37,6 +37,16 @@ allPokemon = {
                 'statusConditiontoInflict': 'Poisoned',
                 'Accuracy': 1,
                 'PP': 35
+            },
+            'Sludge': {
+                'Name': 'Sludge',
+                'Type': 'Poison',
+                'Category': 'Damage',
+                'DependentStat': 'SpecialAttack',
+                'willAlwaysInflictStatusCondition': False,
+                'Power': 65,
+                'Accuracy': 1,
+                'PP': 20
             }
         }
     },
