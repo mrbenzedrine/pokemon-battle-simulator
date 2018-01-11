@@ -198,14 +198,16 @@ class Battle():
 
     def execute_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-        # Check if damage attack or stat-changing attack move
+        move_execution_function = {
+            'Damage': self.execute_damage_move,
+            'Stat': self.execute_stat_move,
+            'StatusCondition': self.execute_status_condition_move
+        }.get(attacking_pokemon_move['Category'], None)
 
-        if(attacking_pokemon_move['Category'] == 'Damage'):
-            self.execute_damage_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
-        elif attacking_pokemon_move['Category'] is 'Stat':
-            self.execute_stat_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
-        elif attacking_pokemon_move['Category'] is 'StatusCondition':
-            self.execute_status_condition_move(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+        if move_execution_function is not None:
+            move_execution_function(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+        else:
+            print("Error in the choosing of a move execution function")
 
     def execute_damage_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
