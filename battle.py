@@ -230,13 +230,19 @@ class Battle():
             'Ice': 'Frozen'
         }.get(attacking_pokemon_move['Type'], None)
 
-        if potential_status_effect is not None and defending_pokemon.status_condition is not potential_status_effect:
+        if attacking_pokemon_move['willAlwaysInflictStatusCondition']:
+            if potential_status_effect is not None and defending_pokemon.status_condition is not potential_status_effect:
 
-            is_status_effect_inflicted = self.status_effect_probability_roll()
-
-            if is_status_effect_inflicted:
                 defending_pokemon.apply_status_condition(potential_status_effect, status_effects_stat_changes[potential_status_effect])
                 print("%s has been %s!" % (defending_pokemon.name, potential_status_effect))
+        else:
+            if potential_status_effect is not None and defending_pokemon.status_condition is not potential_status_effect:
+
+                is_status_effect_inflicted = self.status_effect_probability_roll()
+
+                if is_status_effect_inflicted:
+                    defending_pokemon.apply_status_condition(potential_status_effect, status_effects_stat_changes[potential_status_effect])
+                    print("%s has been %s!" % (defending_pokemon.name, potential_status_effect))
 
         print('%s\'s HP is now %s' % (defending_pokemon.name, defending_pokemon.stats['HP'][0]))
 
