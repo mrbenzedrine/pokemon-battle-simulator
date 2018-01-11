@@ -35,11 +35,13 @@ class Battle():
             # turn
 
             if self.user_pokemon.status_condition is 'Poisoned' or self.user_pokemon.status_condition is 'Burned':
-                print("%s is poisoned/burned!" % self.user_pokemon.name)
+                print("%s is %s so it takes damage!" % (self.user_pokemon.name, self.user_pokemon.status_condition))
                 self.user_pokemon.inflict_burn_or_poison_damage()
+                print("%s\'s HP is now %s" % (self.user_pokemon.name, self.user_pokemon.stats['HP'][0]))
             elif self.enemy_pokemon.status_condition is 'Poisoned' or self.enemy_pokemon.status_condition is 'Burned':
-                print("%s is poisoned/burned!" % self.enemy_pokemon.name)
+                print("%s is %s so it takes damage!" % (self.enemy_pokemon.name, self.enemy_pokemon.status_condition))
                 self.enemy_pokemon.inflict_burn_or_poison_damage()
+                print("%s\'s HP is now %s" % (self.enemy_pokemon.name, self.enemy_pokemon.stats['HP'][0]))
 
         if self.user_pokemon.stats['HP'][0] == 0:
             print('Your %s has fainted!' % self.user_pokemon.name)
