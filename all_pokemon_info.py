@@ -29,6 +29,14 @@ allPokemon = {
                 'Power': 0.9,
                 'Accuracy': 1,
                 'PP': 40
+            },
+            'Poison Powder': {
+                'Name': 'Poison Powder',
+                'Type': 'Poison',
+                'Category': 'StatusCondition',
+                'statusConditiontoInflict': 'Poisoned',
+                'Accuracy': 1,
+                'PP': 35
             }
         }
     },
