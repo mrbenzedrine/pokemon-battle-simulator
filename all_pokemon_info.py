@@ -35,7 +35,6 @@ allPokemon = {
                 'Name': 'Poison Powder',
                 'Type': 'Poison',
                 'Category': 'StatusCondition',
-                'statusConditiontoInflict': 'Poisoned',
                 'Accuracy': 1,
                 'PP': 35
             },

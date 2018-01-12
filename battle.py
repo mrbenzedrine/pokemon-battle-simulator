@@ -341,7 +341,7 @@ class Battle():
 
     def execute_status_condition_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
-        status_condition_to_inflict = attacking_pokemon_move['statusConditiontoInflict']
+        status_condition_to_inflict = types_and_corresponding_status_conditions.get(attacking_pokemon_move['Type'], None)
 
         if defending_pokemon.status_condition is None:
             defending_pokemon.apply_status_condition(status_condition_to_inflict, status_effects_stat_changes[status_condition_to_inflict])
