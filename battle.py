@@ -1,6 +1,7 @@
 import random
 from type_chart import typeChart
 from status_effects import status_effects_stat_changes
+from status_effects import types_and_corresponding_status_conditions
 
 class Battle():
 
@@ -228,12 +229,6 @@ class Battle():
         is_status_effect_inflicted = False # set a default value of False
 
         if defending_pokemon.status_condition is None and attacking_pokemon_move['statusConditionInfliction'] is not 'Nothing':
-            types_and_corresponding_status_conditions = {
-                'Fire': 'Burned',
-                'Poison': 'Poisoned',
-                'Electric': 'Paralyzed',
-                'Ice': 'Frozen'
-            }
             if attacking_pokemon_move['statusConditionInfliction'] is 'Possible':
                 if 'alternativeStatusCondition' in attacking_pokemon_move:
                     potential_status_effect = attacking_pokemon_move['alternativeStatusCondition']
