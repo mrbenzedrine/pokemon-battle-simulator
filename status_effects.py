@@ -14,3 +14,10 @@ status_effects_stat_changes = {
 
     'Sleep': None
 }
+
+types_and_corresponding_status_conditions = {
+    'Fire': 'Burned',
+    'Poison': 'Poisoned',
+    'Electric': 'Paralyzed',
+    'Ice': 'Frozen'
+}
