@@ -14,8 +14,9 @@ allPokemon = {
                 'Name': 'Tackle',
                 'Type': 'Normal',
                 'Category': 'Damage',
-                'willAlwaysInflictStatusCondition': False,
                 'DependentStat' : 'Attack',
+                'statusConditionInfliction': 'Possible',
+                'alternativeStatusCondition' : 'Paralyzed',
                 'Power': 50,
                 'Accuracy': 1,
                 'PP': 35
@@ -43,7 +44,7 @@ allPokemon = {
                 'Type': 'Poison',
                 'Category': 'Damage',
                 'DependentStat': 'SpecialAttack',
-                'willAlwaysInflictStatusCondition': False,
+                'statusConditionInfliction': 'Possible',
                 'Power': 65,
                 'Accuracy': 1,
                 'PP': 20
@@ -65,8 +66,8 @@ allPokemon = {
                 'Name': 'Scratch',
                 'Type': 'Normal',
                 'Category': 'Damage',
-                'willAlwaysInflictStatusCondition': False,
                 'DependentStat' : 'Attack',
+                'statusConditionInfliction': 'Nothing',
                 'Power': 40,
                 'Accuracy': 1,
                 'PP': 35
@@ -98,8 +99,8 @@ allPokemon = {
                 'Name': 'Tackle',
                 'Type': 'Normal',
                 'Category': 'Damage',
-                'willAlwaysInflictStatusCondition': False,
                 'DependentStat' : 'Attack',
+                'statusConditionInfliction': 'Nothing',
                 'Power': 0,  # Made zero for the sake of testing exp gain of user pokemon
                 'Accuracy': 1,
                 'PP': 35

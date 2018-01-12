@@ -225,20 +225,26 @@ class Battle():
         if effectiveness_message is not None:
             print(effectiveness_message)
 
-        potential_status_effect = {
-            'Fire': 'Burned',
-            'Poison': 'Poisoned',
-            'Electric': 'Paralyzed',
-            'Ice': 'Frozen'
-        }.get(attacking_pokemon_move['Type'], None)
-
         is_status_effect_inflicted = False # set a default value of False
 
-        if potential_status_effect is not None and defending_pokemon.status_condition is not potential_status_effect:
-            if attacking_pokemon_move['willAlwaysInflictStatusCondition']:
-                    is_status_effect_inflicted = True
-            else:
+        if defending_pokemon.status_condition is None and attacking_pokemon_move['statusConditionInfliction'] is not 'Nothing':
+            types_and_corresponding_status_conditions = {
+                'Fire': 'Burned',
+                'Poison': 'Poisoned',
+                'Electric': 'Paralyzed',
+                'Ice': 'Frozen'
+            }
+            if attacking_pokemon_move['statusConditionInfliction'] is 'Possible':
+                if 'alternativeStatusCondition' in attacking_pokemon_move:
+                    potential_status_effect = attacking_pokemon_move['alternativeStatusCondition']
+                else:
+                    potential_status_effect = types_and_corresponding_status_conditions.get(attacking_pokemon_move['Type'], None)
+
                 is_status_effect_inflicted = self.status_effect_probability_roll()
+
+            elif attacking_pokemon_move['statusConditionInfliction'] is 'Guaranteed':
+                is_status_effect_inflicted = True
+                potential_status_effect = types_and_corresponding_status_conditions.get(attacking_pokemon_move['Type'], None)
 
         if is_status_effect_inflicted:
             defending_pokemon.apply_status_condition(potential_status_effect, status_effects_stat_changes[potential_status_effect])
