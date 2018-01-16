@@ -208,7 +208,11 @@ class Battle():
         }.get(attacking_pokemon_move['Category'], None)
 
         if move_execution_function is not None:
-            move_execution_function(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+            does_move_hit = self.move_accuracy_roll(attacking_pokemon_move)
+            if does_move_hit:
+                move_execution_function(attacking_pokemon, defending_pokemon, attacking_pokemon_move)
+            else:
+                print("%s\'s move %s missed!" % (attacking_pokemon.name, attacking_pokemon_move['Name']))
         else:
             print("Error in the choosing of a move execution function")
 
@@ -348,3 +352,14 @@ class Battle():
             print("%s has been %s!" % (defending_pokemon.name, status_condition_to_inflict))
         else:
             print("%s is already %s so cannot be %s!" % (defending_pokemon.name, defending_pokemon.status_condition, status_condition_to_inflict))
+
+    def move_accuracy_roll(self, move):
+
+        random_value = random.random()
+
+        if random_value <= move['Accuracy']:
+            does_move_hit = True
+        else:
+            does_move_hit = False
+
+        return does_move_hit
