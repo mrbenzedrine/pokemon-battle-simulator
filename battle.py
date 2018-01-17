@@ -110,7 +110,7 @@ class Battle():
             print('\n')
             choice = input()
 
-            if(choice in self.user_pokemon.moves):
+            if choice in self.user_pokemon.moves:
                 chosen_move = self.user_pokemon.moves[choice]
                 break
             else:
