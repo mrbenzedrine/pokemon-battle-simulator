@@ -109,8 +109,6 @@ class Fight:
 
     def remove_pokemon_status_condition(self, pokemon):
 
-        pokemon.remove_status_condition(status_effects_stat_changes[pokemon.status_condition])
-
         if pokemon.status_condition is 'Frozen':
 
             # Pokemon then thaws
@@ -123,6 +121,8 @@ class Fight:
 
             pokemon.set_sleep_turn_info(None)
             print("%s woke up!" % pokemon.name)
+
+        pokemon.remove_status_condition(status_effects_stat_changes[pokemon.status_condition])
 
     def execute_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
