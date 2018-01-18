@@ -4,5 +4,7 @@ from battle import Battle
 
 MyBulbasaur = UserPokemon('Bulbasaur')
 TheirSquirtle = Pokemon('Squirtle')
-test_battle = Battle(MyBulbasaur, TheirSquirtle)
+MyParty = [MyBulbasaur]
+TheirParty = [TheirSquirtle]
+test_battle = Battle(MyParty, TheirParty)
 test_battle.battle()

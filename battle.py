@@ -5,17 +5,15 @@ from status_effects import types_and_corresponding_status_conditions
 
 class Battle():
 
-    def __init__(self, user_pokemon, enemy_pokemon):
+    def __init__(self, user_party, enemy_party):
 
-        self.user_pokemon = user_pokemon
-        self.enemy_pokemon = enemy_pokemon
+        self.user_party = user_party
+        self.enemy_party = enemy_party
         self.round_number = 0
 
     def battle(self):
 
-        print("Current HP is %s" % self.user_pokemon.stats['HP'][0])
-
-        while self.user_pokemon.stats['HP'][0] > 0 and self.enemy_pokemon.stats['HP'][0] > 0:
+        while sum([pokemon.stats['HP'][0] for pokemon in self.user_party]) > 0 and sum([pokemon.stats['HP'][0] for pokemon in self.enemy_party]) > 0:
 
             self.round_number += 1
 
@@ -35,32 +33,32 @@ class Battle():
             # Check if either pokemon has a burn or poison status effect before moving to another
             # turn
 
-            if self.user_pokemon.status_condition is 'Poisoned' or self.user_pokemon.status_condition is 'Burned':
-                print("%s is %s so it takes damage!" % (self.user_pokemon.name, self.user_pokemon.status_condition))
-                self.user_pokemon.inflict_burn_or_poison_damage()
-                print("%s\'s HP is now %s" % (self.user_pokemon.name, self.user_pokemon.stats['HP'][0]))
-            elif self.enemy_pokemon.status_condition is 'Poisoned' or self.enemy_pokemon.status_condition is 'Burned':
-                print("%s is %s so it takes damage!" % (self.enemy_pokemon.name, self.enemy_pokemon.status_condition))
-                self.enemy_pokemon.inflict_burn_or_poison_damage()
-                print("%s\'s HP is now %s" % (self.enemy_pokemon.name, self.enemy_pokemon.stats['HP'][0]))
+            if self.user_party[0].status_condition is 'Poisoned' or self.user_party[0].status_condition is 'Burned':
+                print("%s is %s so it takes damage!" % (self.user_party[0].name, self.user_party[0].status_condition))
+                self.user_party[0].inflict_burn_or_poison_damage()
+                print("%s\'s HP is now %s" % (self.user_party[0].name, self.user_party[0].stats['HP'][0]))
+            elif self.enemy_party[0].status_condition is 'Poisoned' or self.enemy_party[0].status_condition is 'Burned':
+                print("%s is %s so it takes damage!" % (self.enemy_party[0].name, self.enemy_party[0].status_condition))
+                self.enemy_party[0].inflict_burn_or_poison_damage()
+                print("%s\'s HP is now %s" % (self.enemy_party[0].name, self.enemy_party[0].stats['HP'][0]))
 
-        if self.user_pokemon.stats['HP'][0] == 0:
-            print('Your %s has fainted!' % self.user_pokemon.name)
-            self.user_pokemon.update_state_file()
-        if self.enemy_pokemon.stats['HP'][0] == 0:
-            print('Their %s has fainted!' % self.enemy_pokemon.name)
+        if self.user_party[0].stats['HP'][0] == 0:
+            print('Your %s has fainted!' % self.user_party[0].name)
+            self.user_party[0].update_state_file()
+        if self.enemy_party[0].stats['HP'][0] == 0:
+            print('Their %s has fainted!' % self.enemy_party[0].name)
 
             # should then gain some xp for beating the opponent
 
-            self.user_pokemon.update_xp(50)
+            self.user_party[0].update_xp(50)
 
-        print('Your %s\'s HP is %s' % (self.user_pokemon.name, self.user_pokemon.stats['HP'][0]))
-        print('Their %s\'s HP is %s' % (self.enemy_pokemon.name, self.enemy_pokemon.stats['HP'][0]))
+        print('Your %s\'s HP is %s' % (self.user_party[0].name, self.user_party[0].stats['HP'][0]))
+        print('Their %s\'s HP is %s' % (self.enemy_party[0].name, self.enemy_party[0].stats['HP'][0]))
 
         # Reset the stats multipliers of both pokemon
 
-        self.user_pokemon.reset_stat_multipliers()
-        self.enemy_pokemon.reset_stat_multipliers()
+        self.user_party[0].reset_stat_multipliers()
+        self.enemy_party[0].reset_stat_multipliers()
 
     def choose_action(self):
 
@@ -72,7 +70,7 @@ class Battle():
         ]
 
         while True:
-            print('\nWhat will %s do?' % self.user_pokemon.name)
+            print('\nWhat will %s do?' % self.user_party[0].name)
 
             for action in available_actions:
                 print(action)
@@ -90,7 +88,7 @@ class Battle():
 
         user_chosen_move = self.choose_move()
         # Make the opponent's Squirtle use Tackle as default for now
-        enemy_chosen_move = self.enemy_pokemon.moves['Tackle']
+        enemy_chosen_move = self.enemy_party[0].moves['Tackle']
 
         # Check Speed stats to see who moves first
         # (Won't be Speed stat alone that determines this,
@@ -105,13 +103,13 @@ class Battle():
         while True:
             print('\nWhat move do you choose?')
 
-            for move in self.user_pokemon.moves:
+            for move in self.user_party[0].moves:
                 print(move)
             print('\n')
             choice = input()
 
-            if choice in self.user_pokemon.moves:
-                chosen_move = self.user_pokemon.moves[choice]
+            if choice in self.user_party[0].moves:
+                chosen_move = self.user_party[0].moves[choice]
                 break
             else:
                 print('That move doesn\'t exist, please choose a valid move')
@@ -120,8 +118,8 @@ class Battle():
 
     def who_moves_first(self):
 
-        user_speed = round(self.user_pokemon.stats['Speed'] * self.user_pokemon.stats_multipliers['Speed'])
-        enemy_speed = round(self.enemy_pokemon.stats['Speed'] * self.enemy_pokemon.stats_multipliers['Speed'])
+        user_speed = round(self.user_party[0].stats['Speed'] * self.user_party[0].stats_multipliers['Speed'])
+        enemy_speed = round(self.enemy_party[0].stats['Speed'] * self.enemy_party[0].stats_multipliers['Speed'])
 
         if user_speed >= enemy_speed:
             opponent_moves_first = False
@@ -133,14 +131,14 @@ class Battle():
     def perform_one_round(self, opponent_moves_first, user_move, enemy_move):
 
         if opponent_moves_first:
-            first_pokemon = self.enemy_pokemon
+            first_pokemon = self.enemy_party[0]
             first_pokemon_move = enemy_move
-            second_pokemon = self.user_pokemon
+            second_pokemon = self.user_party[0]
             second_pokemon_move = user_move
         else:
-            first_pokemon = self.user_pokemon
+            first_pokemon = self.user_party[0]
             first_pokemon_move = user_move
-            second_pokemon = self.enemy_pokemon
+            second_pokemon = self.enemy_party[0]
             second_pokemon_move = enemy_move
 
         relevant_status_effects = ['Paralyzed', 'Frozen', 'Sleep']
