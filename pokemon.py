@@ -1,3 +1,4 @@
+from copy import deepcopy
 from all_pokemon_info import allPokemon
 
 class Pokemon:
@@ -6,8 +7,8 @@ class Pokemon:
 
         self.name = name
         self.type = allPokemon[name]['type']
-        self.stats = allPokemon[name]['stats']
-        self.moves = allPokemon[name]['moves']
+        self.stats = deepcopy(allPokemon[name]['stats'])
+        self.moves = deepcopy(allPokemon[name]['moves'])
         self.level = 5
         self.stats_multipliers = {
             'Attack': 1,
