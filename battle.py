@@ -1,4 +1,5 @@
 from fight import Fight
+import party
 
 class Battle():
 
@@ -10,7 +11,7 @@ class Battle():
 
     def battle(self):
 
-        while sum([pokemon.stats['HP'][0] for pokemon in self.user_party]) > 0 and sum([pokemon.stats['HP'][0] for pokemon in self.enemy_party]) > 0:
+        while True:
 
             self.round_number += 1
 
@@ -39,23 +40,44 @@ class Battle():
                 self.enemy_party[0].inflict_burn_or_poison_damage()
                 print("%s\'s HP is now %s" % (self.enemy_party[0].name, self.enemy_party[0].stats['HP'][0]))
 
-        if self.user_party[0].stats['HP'][0] == 0:
-            print('Your %s has fainted!' % self.user_party[0].name)
-            self.user_party[0].update_state_file()
-        if self.enemy_party[0].stats['HP'][0] == 0:
-            print('Their %s has fainted!' % self.enemy_party[0].name)
+            if self.user_party[0].stats['HP'][0] == 0:
+                print('Your %s has fainted!' % self.user_party[0].name)
+                self.user_party[0].update_state_file()
+            if self.enemy_party[0].stats['HP'][0] == 0:
+                print('Their %s has fainted!' % self.enemy_party[0].name)
 
-            # should then gain some xp for beating the opponent
+                # should then gain some xp for beating the opponent
 
-            self.user_party[0].update_xp(50)
+                self.user_party[0].update_xp(50)
 
-        print('Your %s\'s HP is %s' % (self.user_party[0].name, self.user_party[0].stats['HP'][0]))
-        print('Their %s\'s HP is %s' % (self.enemy_party[0].name, self.enemy_party[0].stats['HP'][0]))
+            # Now check if either party has run out of Pokemon
 
-        # Reset the stats multipliers of both pokemon
+            if sum([pokemon.stats['HP'][0] for pokemon in self.user_party]) == 0 or sum([pokemon.stats['HP'][0] for pokemon in self.enemy_party]) == 0:
+                break
+            else:
+                if self.user_party[0].stats['HP'][0] == 0:
+                    # Now need to select another pokemon to send out
+                    chosen_pokemon_party_index = party.user_choose_pokemon_to_switch_to(self.user_party)
+                    party.switch_pokemon(self.user_party, 0, chosen_pokemon_party_index)
+                    print('You sent out %s!' % self.user_party[0].name)
+                elif self.enemy_party[0].stats['HP'][0] == 0:
+                    # Opponent needs to send out another pokemon
+                    chosen_pokemon_party_index = party.enemy_choose_pokemon_to_switch_to(self.enemy_party)
+                    party.switch_pokemon(self.enemy_party, 0, chosen_pokemon_party_index)
+                    print('They sent out %s!' % self.enemy_party[0].name)
 
-        self.user_party[0].reset_stat_multipliers()
-        self.enemy_party[0].reset_stat_multipliers()
+        if sum([pokemon.stats['HP'][0] for pokemon in self.user_party]) == 0:
+            print('Sorry, you lost...')
+        else:
+            print('Congratulations, you won!')
+
+        # Reset the stats multipliers of all pokemon
+
+        for pokemon in self.user_party:
+            pokemon.reset_stat_multipliers()
+
+        for pokemon in self.enemy_party:
+            pokemon.reset_stat_multipliers()
 
     def choose_action(self):
 
