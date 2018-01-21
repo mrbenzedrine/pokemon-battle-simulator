@@ -11,7 +11,11 @@ def user_choose_pokemon_to_switch_to(party):
 
         if choice in pokemon_names:
             chosen_pokemon_party_index = pokemon_names.index(choice)
-            break
+            chosen_pokemon = party[chosen_pokemon_party_index]
+            if chosen_pokemon.stats['HP'][0] > 0:
+                break
+            else:
+                print('%s has 0HP so is unable to fight' % chosen_pokemon.name)
         else:
             print('Invalid Pokemon chosen')
 
