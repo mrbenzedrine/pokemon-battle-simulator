@@ -4,8 +4,8 @@ def user_choose_pokemon_to_switch_to(party):
 
     while True:
         print('Please choose a Pokemon to switch out to')
-        for pokemon_name in pokemon_names:
-            print(pokemon_name)
+        for pokemon in party:
+            print("{}: {}HP".format(pokemon.name, pokemon.stats['HP'][0]))
         print('\n')
         choice = input()
 
