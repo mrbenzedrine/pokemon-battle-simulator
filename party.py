@@ -1,3 +1,14 @@
+def switch_out_pokemon(party, player):
+
+    choice_function = {
+        'user': user_choose_pokemon_to_switch_to,
+        'enemy': enemy_choose_pokemon_to_switch_to
+    }.get(player, None)
+
+    chosen_pokemon_party_index = choice_function(party)
+    switch_pokemon(party, 0, chosen_pokemon_party_index)
+    print("%s sent out %s!" % (player, party[chosen_pokemon_party_index].name))
+
 def user_choose_pokemon_to_switch_to(party):
 
     pokemon_names = [pokemon.name for pokemon in party]

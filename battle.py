@@ -57,14 +57,10 @@ class Battle():
             else:
                 if self.user_party[0].stats['HP'][0] == 0:
                     # Now need to select another pokemon to send out
-                    chosen_pokemon_party_index = party.user_choose_pokemon_to_switch_to(self.user_party)
-                    party.switch_pokemon(self.user_party, 0, chosen_pokemon_party_index)
-                    print('You sent out %s!' % self.user_party[0].name)
+                    party.switch_out_pokemon(self.user_party, 'user')
                 elif self.enemy_party[0].stats['HP'][0] == 0:
                     # Opponent needs to send out another pokemon
-                    chosen_pokemon_party_index = party.enemy_choose_pokemon_to_switch_to(self.enemy_party)
-                    party.switch_pokemon(self.enemy_party, 0, chosen_pokemon_party_index)
-                    print('They sent out %s!' % self.enemy_party[0].name)
+                    party.switch_out_pokemon(self.enemy_party, 'enemy')
 
         if sum([pokemon.stats['HP'][0] for pokemon in self.user_party]) == 0:
             print('Sorry, you lost...')
