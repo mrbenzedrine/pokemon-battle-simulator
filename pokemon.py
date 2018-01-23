@@ -27,7 +27,7 @@ class Pokemon:
 
     def subtract_hp(self, damage):
 
-        if(self.stats['HP'][0] - damage < 0):
+        if self.stats['HP'][0] - damage < 0:
             self.stats['HP'][0] = 0
         else:
             self.stats['HP'][0] -= damage
