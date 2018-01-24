@@ -2,7 +2,7 @@ def switch_out_pokemon(party, player):
 
     choice_function = {
         'user': user_choose_pokemon_to_switch_to,
-        'enemy': enemy_choose_pokemon_to_switch_to
+        'enemy': get_first_available_pokemon
     }.get(player, None)
 
     chosen_pokemon_party_index = choice_function(party)
@@ -32,9 +32,7 @@ def user_choose_pokemon_to_switch_to(party):
 
     return chosen_pokemon_party_index
 
-def enemy_choose_pokemon_to_switch_to(party):
-
-    # Just send out the first Pokemon in party with non-zero HP
+def get_first_available_pokemon(party):
 
     for index, pokemon in enumerate(party):
         if pokemon.stats['HP'][0] > 0:
