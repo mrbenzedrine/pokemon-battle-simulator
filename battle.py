@@ -34,25 +34,26 @@ class Battle():
             check_burned_or_poisoned(self.user_party[0])
             check_burned_or_poisoned(self.enemy_party[0])
 
-            if self.user_party[0].stats['HP'][0] == 0:
-                print('Your %s has fainted!' % self.user_party[0].name)
-                self.user_party[0].update_state_file()
-            if self.enemy_party[0].stats['HP'][0] == 0:
-                print('Their %s has fainted!' % self.enemy_party[0].name)
-
-                # should then gain some xp for beating the opponent
-
-                self.user_party[0].update_xp(50)
-
             # Now check if either party has run out of Pokemon
 
             if sum([pokemon.stats['HP'][0] for pokemon in self.user_party]) == 0 or sum([pokemon.stats['HP'][0] for pokemon in self.enemy_party]) == 0:
                 break
             else:
                 if self.user_party[0].stats['HP'][0] == 0:
+
+                    print('Your %s has fainted!' % self.user_party[0].name)
+                    self.user_party[0].update_state_file()
+
                     # Now need to select another pokemon to send out
                     party.switch_out_pokemon(self.user_party, 'user')
-                elif self.enemy_party[0].stats['HP'][0] == 0:
+
+                if self.enemy_party[0].stats['HP'][0] == 0:
+
+                    print('Their %s has fainted!' % self.enemy_party[0].name)
+
+                    # should then gain some xp for beating the opponent
+                    self.user_party[0].update_xp(50)
+
                     # Opponent needs to send out another pokemon
                     party.switch_out_pokemon(self.enemy_party, 'enemy')
 
