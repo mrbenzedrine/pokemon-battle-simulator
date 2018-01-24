@@ -31,14 +31,8 @@ class Battle():
             # Check if either pokemon has a burn or poison status effect before moving to another
             # turn
 
-            if self.user_party[0].status_condition is 'Poisoned' or self.user_party[0].status_condition is 'Burned':
-                print("%s is %s so it takes damage!" % (self.user_party[0].name, self.user_party[0].status_condition))
-                self.user_party[0].inflict_burn_or_poison_damage()
-                print("%s\'s HP is now %s" % (self.user_party[0].name, self.user_party[0].stats['HP'][0]))
-            elif self.enemy_party[0].status_condition is 'Poisoned' or self.enemy_party[0].status_condition is 'Burned':
-                print("%s is %s so it takes damage!" % (self.enemy_party[0].name, self.enemy_party[0].status_condition))
-                self.enemy_party[0].inflict_burn_or_poison_damage()
-                print("%s\'s HP is now %s" % (self.enemy_party[0].name, self.enemy_party[0].stats['HP'][0]))
+            check_burned_or_poisoned(self.user_party[0])
+            check_burned_or_poisoned(self.enemy_party[0])
 
             if self.user_party[0].stats['HP'][0] == 0:
                 print('Your %s has fainted!' % self.user_party[0].name)
@@ -98,3 +92,10 @@ class Battle():
                 print('That action doesn\'t exist, please choose a valid action')
 
         return choice
+
+def check_burned_or_poisoned(pokemon):
+
+    if pokemon.status_condition is 'Poisoned' or pokemon.status_condition is 'Burned':
+        print("%s is %s so it takes damage!" % (pokemon.name, pokemon.status_condition))
+        pokemon.inflict_burn_or_poison_damage()
+        print("%s\'s HP is now %s" % (pokemon.name, pokemon.stats['HP'][0]))
