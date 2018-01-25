@@ -7,7 +7,7 @@ def switch_out_pokemon(party, player):
 
     chosen_pokemon_party_index = choice_function(party)
     switch_pokemon(party, 0, chosen_pokemon_party_index)
-    print("%s sent out %s!" % (player, party[chosen_pokemon_party_index].name))
+    print("%s sent out %s!" % (player, party[0].name))
 
 def user_choose_pokemon_to_switch_to(party):
 
