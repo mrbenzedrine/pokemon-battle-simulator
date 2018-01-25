@@ -9,9 +9,9 @@ class Battle():
         self.enemy_party = enemy_party
         self.round_number = 0
 
-    def battle(self):
-
         self.pre_battle_checks()
+
+    def battle(self):
 
         while True:
 
