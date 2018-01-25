@@ -8,19 +8,23 @@ class UserPokemon(Pokemon):
         super().__init__(name)
 
         try:
-            self.level = self.load_last_state()['level']
-            self.current_xp = self.load_last_state()['current_xp']
-            self.level_up_xp = self.load_last_state()['level_up_xp']
-            self.stats['HP'] = self.load_last_state()['HP']
-            self.status_condition = self.load_last_state()['status_condition']
-            print(' Previous save state existed, so loading it')
+            last_state = self.load_last_state()
         except IOError:
-            self.level = self.create_initial_state_file()['level']
-            self.current_xp = self.create_initial_state_file()['current_xp']
-            self.level_up_xp = self.create_initial_state_file()['level_up_xp']
-            self.stats['HP'] = self.create_initial_state_file()['HP']
-            self.status_condition = self.create_initial_state_file()['status_condition']
             print('No previous save state existed, so creating a fresh one')
+            initial_state = self.create_initial_state_file()
+
+            self.level = initial_state['level']
+            self.current_xp = initial_state['current_xp']
+            self.level_up_xp = initial_state['level_up_xp']
+            self.stats['HP'] = initial_state['HP']
+            self.status_condition = initial_state['status_condition']
+        else:
+            print('Previous save state existed, so loading it')
+            self.level = last_state['level']
+            self.current_xp = last_state['current_xp']
+            self.level_up_xp = last_state['level_up_xp']
+            self.stats['HP'] = last_state['HP']
+            self.status_condition = last_state['status_condition']
 
     def show_xp_to_next_level(self):
         print(self.level_up_xp - self.current_xp)
