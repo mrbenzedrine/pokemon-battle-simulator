@@ -11,6 +11,8 @@ class Battle():
 
     def battle(self):
 
+        self.pre_battle_checks()
+
         while True:
 
             self.round_number += 1
@@ -93,6 +95,22 @@ class Battle():
                 print('That action doesn\'t exist, please choose a valid action')
 
         return choice
+
+    def pre_battle_checks(self):
+
+        # Assume that both parties have at least 1 Pokemon with non-zero HP
+        # going into the battle
+
+        # Check if the first Pokemon in each party has non-zero HP; if not,
+        # send out the first Pokemon in the party with non-zero HP
+
+        if self.user_party[0].stats['HP'][0] == 0:
+            user_party_index = party.get_first_available_pokemon(self.user_party)
+            party.switch_pokemon(self.user_party, 0, user_party_index)
+
+        if self.enemy_party[0].stats['HP'][0] == 0:
+            enemy_party_index = party.get_first_available_pokemon(self.enemy_party)
+            party.switch_out_pokemon(self.enemy_party, 0, enemy_party_index)
 
 def check_burned_or_poisoned(pokemon):
 
