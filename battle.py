@@ -17,18 +17,25 @@ class Battle():
 
             self.round_number += 1
 
-            # First need to choose an action (fight, bag, pokemon, run)
+            while True:
 
-            chosen_action = self.choose_action()
+                # First need to choose an action (fight, bag, pokemon, run)
 
-            if chosen_action == 'Fight' or \
-                chosen_action == 'Bag' or \
-                chosen_action == 'Pokemon' or \
-                    chosen_action == 'Run':
+                chosen_action = self.choose_action()
 
-                # Have all options default to fight for now
+                if chosen_action == 'Fight' or \
+                    chosen_action == 'Bag' or \
+                    chosen_action == 'Pokemon' or \
+                        chosen_action == 'Run':
 
-                Fight(self.user_party[0], self.enemy_party[0], self.round_number).fight()
+                    # Have all options default to fight for now
+                    current_round = Fight(self.user_party[0], self.enemy_party[0], self.round_number)
+                    chosen_option = current_round.choose_move(current_round.user_pokemon)
+
+                    if chosen_option != 'Back':
+                        # Make the opponent's Squirtle use Tackle as default for now
+                        current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
+                        break
 
             # Check if either pokemon has a burn or poison status effect before moving to another
             # turn

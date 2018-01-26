@@ -11,11 +11,7 @@ class Fight:
         self.enemy_pokemon = enemy_pokemon
         self.round_number = round_number
 
-    def fight(self):
-
-        user_chosen_move = self.choose_move(self.user_pokemon)
-        # Make the opponent's Squirtle use Tackle as default for now
-        enemy_chosen_move = self.enemy_pokemon.moves['Tackle']
+    def fight(self, user_move, enemy_move):
 
         # Check Speed stats to see who moves first
         # (Won't be Speed stat alone that determines this,
@@ -23,7 +19,7 @@ class Fight:
 
         opponent_moves_first = self.who_moves_first()
 
-        self.perform_one_round(opponent_moves_first, user_chosen_move, enemy_chosen_move)
+        self.perform_one_round(opponent_moves_first, user_move, enemy_move)
 
     def choose_move(self, pokemon):
 
@@ -33,15 +29,19 @@ class Fight:
             for move in pokemon.moves:
                 print(move)
             print('\n')
+            print('Or use \'Back\' to go back to the menu')
             choice = input()
 
             if choice in pokemon.moves:
-                chosen_move = pokemon.moves[choice]
+                chosen_option = pokemon.moves[choice]
+                break
+            elif choice == 'Back':
+                chosen_option = choice
                 break
             else:
-                print('That move doesn\'t exist, please choose a valid move')
+                print('That choice doesn\'t exist, please select a valid choice')
 
-        return chosen_move
+        return chosen_option
 
     def who_moves_first(self):
 
