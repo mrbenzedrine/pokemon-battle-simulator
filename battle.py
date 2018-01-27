@@ -17,25 +17,7 @@ class Battle():
 
             self.round_number += 1
 
-            while True:
-
-                # First need to choose an action (fight, bag, pokemon, run)
-
-                chosen_action = self.choose_action()
-
-                if chosen_action == 'Fight' or \
-                    chosen_action == 'Bag' or \
-                    chosen_action == 'Pokemon' or \
-                        chosen_action == 'Run':
-
-                    # Have all options default to fight for now
-                    current_round = Fight(self.user_party[0], self.enemy_party[0], self.round_number)
-                    chosen_option = current_round.choose_move(current_round.user_pokemon)
-
-                    if chosen_option != 'Back':
-                        # Make the opponent's Squirtle use Tackle as default for now
-                        current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
-                        break
+            self.explore_menu_options()
 
             # Check if either pokemon has a burn or poison status effect before moving to another
             # turn
@@ -118,6 +100,29 @@ class Battle():
         if self.enemy_party[0].stats['HP'][0] == 0:
             enemy_party_index = party.get_first_available_pokemon(self.enemy_party)
             party.switch_out_pokemon(self.enemy_party, 0, enemy_party_index)
+
+    def explore_menu_options(self):
+
+        while True:
+
+            # First need to choose an action (fight, bag, pokemon, run)
+
+            chosen_action = self.choose_action()
+
+            if chosen_action == 'Fight' or \
+                chosen_action == 'Bag' or \
+                chosen_action == 'Pokemon' or \
+                    chosen_action == 'Run':
+
+                # Have all options default to fight for now
+                current_round = Fight(self.user_party[0], self.enemy_party[0], self.round_number)
+                chosen_option = current_round.choose_move(current_round.user_pokemon)
+
+                if chosen_option != 'Back':
+                    # Make the opponent's Squirtle use Tackle as default for now
+                    current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
+                    break
+
 
 def check_burned_or_poisoned(pokemon):
 
