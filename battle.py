@@ -109,20 +109,29 @@ class Battle():
 
             chosen_action = self.choose_action()
 
-            if chosen_action == 'Fight' or \
-                chosen_action == 'Bag' or \
-                chosen_action == 'Pokemon' or \
-                    chosen_action == 'Run':
+            # Have all options default to fight for now
 
-                # Have all options default to fight for now
-                current_round = Fight(self.user_party[0], self.enemy_party[0], self.round_number)
-                chosen_option = current_round.choose_move(current_round.user_pokemon)
+            open_menu_function = {
+                'Fight': self.open_fight_menu,
+                'Bag': self.open_fight_menu,
+                'Pokemon': self.open_fight_menu,
+                'Run': self.open_fight_menu
+            }.get(chosen_action, None)
 
-                if chosen_option != 'Back':
-                    # Make the opponent's Squirtle use Tackle as default for now
-                    current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
-                    break
+            is_turn_completed = open_menu_function()
 
+            if is_turn_completed:
+                break
+
+    def open_fight_menu(self):
+
+        current_round = Fight(self.user_party[0], self.enemy_party[0], self.round_number)
+        chosen_option = current_round.choose_move(current_round.user_pokemon)
+
+        if chosen_option != 'Back':
+            # Make the opponent's Squirtle use Tackle as default for now
+            current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
+            return True
 
 def check_burned_or_poisoned(pokemon):
 
