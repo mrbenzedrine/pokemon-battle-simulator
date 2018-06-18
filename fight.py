@@ -174,8 +174,6 @@ class Fight:
             defending_pokemon.apply_status_condition(potential_status_effect, status_effects_stat_changes[potential_status_effect])
             print("%s has been %s!" % (defending_pokemon.name, potential_status_effect))
 
-        print('%s\'s HP is now %s' % (defending_pokemon.name, defending_pokemon.stats['HP'][0]))
-
     def execute_stat_move(self, attacking_pokemon, defending_pokemon, attacking_pokemon_move):
 
         move_type_check_result = self.move_type_check(attacking_pokemon_move['Type'], defending_pokemon)
@@ -198,10 +196,7 @@ class Fight:
 
     def move_type_check(self, attacking_move_type, defending_pokemon):
 
-        print('The attacking move type is %s, the defending Pokemon\'s type is %s' %
-              (attacking_move_type, defending_pokemon.type))
         damage_multiplier = typeChart[attacking_move_type][defending_pokemon.type]
-        print('damage_multipler is: %s' % damage_multiplier)
 
         # Check what message, if any, should be returned regarding the effectiveness of the
         # type of the move against the type of the defending pokemon
