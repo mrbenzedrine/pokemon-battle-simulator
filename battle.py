@@ -15,6 +15,10 @@ class Battle():
 
             self.round_number += 1
 
+            print('\n==================================')
+            self.display_pokemon_info(self.user_party[0])
+            self.display_pokemon_info(self.enemy_party[0])
+
             self.explore_menu_options()
 
             # Check if either pokemon has a burn or poison status effect before moving to another
@@ -106,6 +110,10 @@ class Battle():
             # Make the opponent's Squirtle use Tackle as default for now
             current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
             return True
+
+    def display_pokemon_info(self, pokemon):
+
+        print("{}: {}HP Status: {}".format(pokemon.name, pokemon.stats['HP'][0], pokemon.status_condition))
 
 def check_burned_or_poisoned(pokemon):
 
