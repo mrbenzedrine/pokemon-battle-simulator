@@ -9,8 +9,6 @@ class Battle():
         self.enemy_party = enemy_party
         self.round_number = 0
 
-        self.pre_battle_checks()
-
     def battle(self):
 
         while True:
@@ -33,7 +31,6 @@ class Battle():
                 if self.user_party[0].stats['HP'][0] == 0:
 
                     print('Your %s has fainted!' % self.user_party[0].name)
-                    self.user_party[0].update_state_file()
 
                     # Now need to select another pokemon to send out
                     party.switch_out_pokemon(self.user_party, 'user')
@@ -41,9 +38,6 @@ class Battle():
                 if self.enemy_party[0].stats['HP'][0] == 0:
 
                     print('Their %s has fainted!' % self.enemy_party[0].name)
-
-                    # should then gain some xp for beating the opponent
-                    self.user_party[0].update_xp(50)
 
                     # Opponent needs to send out another pokemon
                     party.switch_out_pokemon(self.enemy_party, 'enemy')
@@ -65,9 +59,7 @@ class Battle():
 
         available_actions = [
             'Fight',
-            'Bag',
             'Pokemon',
-            'Run'
         ]
 
         while True:
@@ -85,27 +77,11 @@ class Battle():
 
         return choice
 
-    def pre_battle_checks(self):
-
-        # Assume that both parties have at least 1 Pokemon with non-zero HP
-        # going into the battle
-
-        # Check if the first Pokemon in each party has non-zero HP; if not,
-        # send out the first Pokemon in the party with non-zero HP
-
-        if self.user_party[0].stats['HP'][0] == 0:
-            user_party_index = party.get_first_available_pokemon(self.user_party)
-            party.switch_pokemon(self.user_party, 0, user_party_index)
-
-        if self.enemy_party[0].stats['HP'][0] == 0:
-            enemy_party_index = party.get_first_available_pokemon(self.enemy_party)
-            party.switch_out_pokemon(self.enemy_party, 0, enemy_party_index)
-
     def explore_menu_options(self):
 
         while True:
 
-            # First need to choose an action (fight, bag, pokemon, run)
+            # First need to choose an action (fight, pokemon)
 
             chosen_action = self.choose_action()
 
@@ -113,9 +89,7 @@ class Battle():
 
             open_menu_function = {
                 'Fight': self.open_fight_menu,
-                'Bag': self.open_fight_menu,
                 'Pokemon': self.open_fight_menu,
-                'Run': self.open_fight_menu
             }.get(chosen_action, None)
 
             is_turn_completed = open_menu_function()

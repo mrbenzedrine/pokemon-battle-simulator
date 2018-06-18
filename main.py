@@ -1,9 +1,8 @@
 from pokemon import Pokemon
-from user_pokemon import UserPokemon
 from battle import Battle
 
-MyBulbasaur = UserPokemon('Bulbasaur')
-MySquirtle = UserPokemon('Squirtle')
+MyBulbasaur = Pokemon('Bulbasaur')
+MySquirtle = Pokemon('Squirtle')
 TheirSquirtle = Pokemon('Squirtle')
 TheirBulbasaur = Pokemon('Bulbasaur')
 MyParty = [MyBulbasaur, MySquirtle]
