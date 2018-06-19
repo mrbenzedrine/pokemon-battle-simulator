@@ -5,6 +5,8 @@ from status_effects import types_and_corresponding_status_conditions
 
 class Fight:
 
+    relevant_status_effects_when_attacking = ['Paralyzed', 'Frozen', 'Sleep']
+
     def __init__(self, user_pokemon, enemy_pokemon, round_number):
 
         self.user_pokemon = user_pokemon
@@ -29,13 +31,12 @@ class Fight:
         # Also, since switching out pokemon hasn't been implemented
         # for opponents yet there's no need to treat that case (yet)
 
-        relevant_status_effects = ['Paralyzed', 'Frozen', 'Sleep']
         is_attacker_able_to_move = True
 
         if attacker == 'user':
             pass
         elif attacker == 'enemy':
-            if self.enemy_pokemon.status_condition in relevant_status_effects:
+            if self.enemy_pokemon.status_condition in Fight.relevant_status_effects_when_attacking:
 
                 is_attacker_able_to_move = self.check_if_status_inflicted_pokemon_can_move(self.enemy_pokemon)
 
@@ -94,11 +95,10 @@ class Fight:
             second_pokemon = self.enemy_pokemon
             second_pokemon_move = enemy_move
 
-        relevant_status_effects = ['Paralyzed', 'Frozen', 'Sleep']
         is_first_able_to_move = True
         is_second_able_to_move = True
 
-        if first_pokemon.status_condition in relevant_status_effects:
+        if first_pokemon.status_condition in Fight.relevant_status_effects_when_attacking:
             is_first_able_to_move = self.check_if_status_inflicted_pokemon_can_move(first_pokemon)
 
         if is_first_able_to_move:
@@ -107,7 +107,7 @@ class Fight:
         if second_pokemon.stats['HP'][0] == 0:
             return
         else:
-            if second_pokemon.status_condition in relevant_status_effects:
+            if second_pokemon.status_condition in Fight.relevant_status_effects_when_attacking:
                 is_second_able_to_move = self.check_if_status_inflicted_pokemon_can_move(second_pokemon)
 
             if is_second_able_to_move:
