@@ -59,6 +59,16 @@ class Battle():
         for pokemon in self.enemy_party:
             pokemon.reset_stat_multipliers()
 
+        print('\n==================================')
+        print('User\n')
+        for pokemon in self.user_party:
+            self.display_pokemon_info(pokemon)
+        print('\n')
+        print('Opponent\n')
+        for pokemon in self.enemy_party:
+            self.display_pokemon_info(pokemon)
+        print('\n')
+
     def choose_action(self):
 
         available_actions = [
