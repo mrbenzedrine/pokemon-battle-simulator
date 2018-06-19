@@ -21,6 +21,28 @@ class Fight:
 
         self.perform_one_round(opponent_moves_first, user_move, enemy_move)
 
+    def one_side_attacks(self, attacker):
+
+        # Only invoked when a player uses their turn up by switching
+        # out pokemon and so the other side is the only one attacking
+        # in the turn
+        # Also, since switching out pokemon hasn't been implemented
+        # for opponents yet there's no need to treat that case (yet)
+
+        relevant_status_effects = ['Paralyzed', 'Frozen', 'Sleep']
+        is_attacker_able_to_move = True
+
+        if attacker == 'user':
+            pass
+        elif attacker == 'enemy':
+            # Let opponent's pokemon use Tackle as default for now
+            if self.enemy_pokemon.status_condition in relevant_status_effects:
+
+                is_attacker_able_to_move = self.check_if_status_inflicted_pokemon_can_move(self.enemy_pokemon)
+
+            if is_attacker_able_to_move:
+                self.execute_move(self.enemy_pokemon, self.user_pokemon, self.enemy_pokemon.moves['Tackle'])
+
     def choose_move(self, pokemon):
 
         while True:

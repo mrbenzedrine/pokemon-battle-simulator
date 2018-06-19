@@ -93,7 +93,7 @@ class Battle():
 
             open_menu_function = {
                 'Fight': self.open_fight_menu,
-                'Pokemon': self.open_fight_menu,
+                'Pokemon': self.open_pokemon_menu,
             }.get(chosen_action, None)
 
             is_turn_completed = open_menu_function()
@@ -109,6 +109,22 @@ class Battle():
         if chosen_option != 'Back':
             # Make the opponent's Squirtle use Tackle as default for now
             current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
+            return True
+
+    def open_pokemon_menu(self):
+
+        chosen_pokemon_party_index = party.user_choose_pokemon_to_switch_to(self.user_party)
+
+        if chosen_pokemon_party_index == 0:
+            print("%s is already in battle!" % self.user_party[0].name)
+            return self.open_pokemon_menu()
+        elif chosen_pokemon_party_index != -1:
+            party.switch_pokemon(self.user_party, 0, chosen_pokemon_party_index)
+            print("User sent out %s!" % self.user_party[0].name)
+
+            # Now let the opponent take their turn
+            opponents_turn = Fight(self.user_party[0], self.enemy_party[0], self.round_number)
+            opponents_turn.one_side_attacks('enemy')
             return True
 
     def display_pokemon_info(self, pokemon):

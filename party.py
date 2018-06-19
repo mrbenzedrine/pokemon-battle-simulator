@@ -13,11 +13,19 @@ def user_choose_pokemon_to_switch_to(party):
 
     pokemon_names = [pokemon.name for pokemon in party]
 
+    if party[0].stats['HP'][0] == 0:
+        has_pokemon_fainted = True
+    else:
+        has_pokemon_fainted = False
+
     while True:
         print('Please choose a Pokemon to switch out to')
         for pokemon in party:
             print("{}: {}HP".format(pokemon.name, pokemon.stats['HP'][0]))
         print('\n')
+
+        if not has_pokemon_fainted:
+            print('Or use \'Back\' to go back to the menu')
         choice = input()
 
         if choice in pokemon_names:
@@ -27,6 +35,9 @@ def user_choose_pokemon_to_switch_to(party):
                 break
             else:
                 print('%s has 0HP so is unable to fight' % chosen_pokemon.name)
+        elif not has_pokemon_fainted and choice == 'Back':
+            chosen_pokemon_party_index = -1
+            break
         else:
             print('Invalid Pokemon chosen')
 
