@@ -115,10 +115,10 @@ class Battle():
 
         current_round = Fight(self.user_party[0], self.enemy_party[0], self.round_number)
         chosen_option = current_round.choose_move(current_round.user_pokemon)
+        enemy_chosen_option = current_round.choose_random_move(current_round.enemy_pokemon)
 
         if chosen_option != 'Back':
-            # Make the opponent's Squirtle use Tackle as default for now
-            current_round.fight(chosen_option, current_round.enemy_pokemon.moves['Tackle'])
+            current_round.fight(chosen_option, enemy_chosen_option)
             return True
 
     def open_pokemon_menu(self):

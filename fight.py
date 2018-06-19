@@ -35,13 +35,13 @@ class Fight:
         if attacker == 'user':
             pass
         elif attacker == 'enemy':
-            # Let opponent's pokemon use Tackle as default for now
             if self.enemy_pokemon.status_condition in relevant_status_effects:
 
                 is_attacker_able_to_move = self.check_if_status_inflicted_pokemon_can_move(self.enemy_pokemon)
 
             if is_attacker_able_to_move:
-                self.execute_move(self.enemy_pokemon, self.user_pokemon, self.enemy_pokemon.moves['Tackle'])
+                enemy_chosen_move = self.choose_random_move(self.enemy_pokemon)
+                self.execute_move(self.enemy_pokemon, self.user_pokemon, enemy_chosen_move)
 
     def choose_move(self, pokemon):
 
@@ -64,6 +64,10 @@ class Fight:
                 print('That choice doesn\'t exist, please select a valid choice')
 
         return chosen_option
+
+    def choose_random_move(self, pokemon):
+
+        return random.choice([pokemon.moves[move] for move in pokemon.moves])
 
     def who_moves_first(self):
 
