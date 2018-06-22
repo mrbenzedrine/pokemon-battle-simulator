@@ -215,8 +215,11 @@ class Fight:
         if damage_multiplier != 0:
             attacking_pokemon.use_stat_move(attacking_pokemon_move, attacking_pokemon_move['Power'], target_pokemon)
             affected_stat = attacking_pokemon_move['AffectedStat']
-            stat_with_applied_multiplier = round(target_pokemon.stats[affected_stat] * target_pokemon.stats_multipliers[affected_stat])
-            print('%s\'s %s stat is now %s' % (target_pokemon.name, affected_stat, stat_with_applied_multiplier))
+
+            if target_pokemon.stat_offsets[affected_stat] >= 0:
+                offset_multipler = (target_pokemon.stat_offsets[affected_stat] + 2)/2
+            else:
+                offset_multipler = 2/(abs(target_pokemon.stat_offsets[affected_stat]) + 2)
         else:
             print(effectiveness_message)
 

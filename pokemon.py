@@ -17,6 +17,13 @@ class Pokemon:
             'SpecialDefense': 1,
             'Speed': 1
         }
+        self.stat_offsets = {
+            'Attack': 0,
+            'SpecialAttack': 0,
+            'Defense': 0,
+            'SpecialDefense': 0,
+            'Speed': 0
+        }
         self.status_condition = None
         self.sleep_turn_info = None
 
@@ -32,18 +39,34 @@ class Pokemon:
         else:
             self.stats['HP'][0] -= damage
 
-    def use_stat_move(self, move, stat_multiplier, enemy_pokemon):
+    def use_stat_move(self, move, stat_offset, enemy_pokemon):
 
-        enemy_pokemon.multiply_stat(move['AffectedStat'], stat_multiplier)
+        is_stat_within_lower_bound = enemy_pokemon.stat_offsets[move['AffectedStat']] + stat_offset >= -6
+        is_stat_within_higher_bound = enemy_pokemon.stat_offsets[move['AffectedStat']] + stat_offset <= 6
+
+        if is_stat_within_lower_bound and is_stat_within_higher_bound:
+            enemy_pokemon.offset_stat(move['AffectedStat'], stat_offset)
+        elif not is_stat_within_lower_bound:
+            print("%s\'s %s stat cannot go any lower!" % (enemy_pokemon.name, move['AffectedStat']))
+        elif not is_stat_within_higher_bound:
+            print("%s\'s %s stat cannot go any higher!" % (enemy_pokemon.name, move['AffectedStat']))
 
     def multiply_stat(self, stat, stat_multiplier):
-
         self.stats_multipliers[stat] = stat_multiplier * self.stats_multipliers[stat]
 
     def reset_stat_multipliers(self):
 
         for stat in self.stats_multipliers:
             self.stats_multipliers[stat] = 1
+
+    def offset_stat(self, stat, stat_offset):
+
+        self.stat_offsets[stat] += stat_offset
+
+    def reset_stat_offsets(self):
+
+        for stat in self.stat_offsets:
+            self.stat_offsets[stat] = 0
 
     def apply_status_condition(self, status_condition, stat_change):
 

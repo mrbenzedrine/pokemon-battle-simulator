@@ -6,6 +6,7 @@ def switch_out_pokemon(party, player):
     }.get(player, None)
 
     chosen_pokemon_party_index = choice_function(party)
+    party[0].reset_stat_offsets()
     switch_pokemon(party, 0, chosen_pokemon_party_index)
     print("%s sent out %s!" % (player, party[0].name))
 

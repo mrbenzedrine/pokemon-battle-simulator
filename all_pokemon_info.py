@@ -27,7 +27,7 @@ allPokemon = {
                 'Category': 'Stat',
                 'AffectedStat': 'Attack',
                 'doesAffectUser': False,
-                'Power': 0.9,
+                'Power': -1,
                 'Accuracy': 1,
                 'PP': 40
             },
@@ -77,7 +77,7 @@ allPokemon = {
                 'Category': 'Stat',
                 'AffectedStat': 'Attack',
                 'doesAffectUser': False,
-                'Power': 0.9,
+                'Power': -1,
                 'Accuracy': 1,
                 'PP': 40
             }
@@ -100,7 +100,7 @@ allPokemon = {
                 'Category': 'Damage',
                 'DependentStat' : 'Attack',
                 'statusConditionInfliction': 'Nothing',
-                'Power': 0,  # Made zero for the sake of testing exp gain of user pokemon
+                'Power': 30,
                 'Accuracy': 1,
                 'PP': 35
             },
@@ -110,7 +110,7 @@ allPokemon = {
                 'Category': 'Stat',
                 'AffectedStat': 'Defense',
                 'doesAffectUser': False,
-                'Power': 0.9,
+                'Power': -1,
                 'Accuracy': 1,
                 'PP': 30
             }

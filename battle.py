@@ -51,13 +51,15 @@ class Battle():
         else:
             print('Congratulations, you won!')
 
-        # Reset the stats multipliers of all pokemon
+        # Reset the stats multipliers and stat offsets of all pokemon
 
         for pokemon in self.user_party:
             pokemon.reset_stat_multipliers()
+            pokemon.reset_stat_offsets()
 
         for pokemon in self.enemy_party:
             pokemon.reset_stat_multipliers()
+            pokemon.reset_stat_offsets()
 
         print('\n==================================')
         print('User\n')
@@ -129,6 +131,7 @@ class Battle():
             print("%s is already in battle!" % self.user_party[0].name)
             return self.open_pokemon_menu()
         elif chosen_pokemon_party_index != -1:
+            party[0].reset_stat_offsets()
             party.switch_pokemon(self.user_party, 0, chosen_pokemon_party_index)
             print("User sent out %s!" % self.user_party[0].name)
 
